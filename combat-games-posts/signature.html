@@ -1,0 +1,55 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+:root{--g:#2be25f;--gd:#0f9d38;--ink:#0b0f0c;--gold:#b8861f}
+body.elite{--g:#14d27a;--gd:#066b3c}
+*{margin:0;box-sizing:border-box}
+body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f6faf4;font-family:'Inter','Inter Display',Arial,sans-serif;color:var(--ink)}
+.wm{position:absolute;left:-60px;top:120px;font-size:900px;font-weight:900;font-style:italic;letter-spacing:-60px;line-height:.8;color:transparent;-webkit-text-stroke:3px #cfe5cb;transform:skewX(-8deg);white-space:nowrap}
+.stripes{position:absolute;right:-120px;top:0;width:520px;height:1350px;background:repeating-linear-gradient(115deg,var(--g) 0 26px,transparent 26px 60px);opacity:.18}
+.top{position:absolute;top:44px;left:60px;right:60px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-style:italic;font-weight:900;font-size:78px;letter-spacing:-3px;transform:skewX(-8deg);line-height:1}
+.logo b{color:var(--gd)}
+.logo small{display:block;font-size:14px;letter-spacing:10px;font-weight:700;font-style:normal;color:#555;margin-top:2px}
+.ev{text-align:right}
+.ev .t{display:inline-block;background:var(--ink);color:#fff;font-weight:900;font-style:italic;font-size:46px;letter-spacing:-1px;padding:6px 22px 6px 26px;transform:skewX(-8deg)}
+.ev .s{font-weight:700;font-size:13px;letter-spacing:3px;margin-top:8px;color:#444}
+.slab{position:absolute;left:150px;top:200px;width:790px;height:790px;background:var(--g);transform:translate(26px,26px);clip-path:polygon(9% 0,100% 0,91% 100%,0 100%)}
+.photo{position:absolute;left:150px;top:200px;width:790px;height:790px;clip-path:polygon(9% 0,100% 0,91% 100%,0 100%);background:#dfeadc;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:none}
+.ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#9db39a;font-weight:800;font-size:36px;letter-spacing:6px;text-align:center}
+.chev{position:absolute;left:60px;top:560px;display:flex;flex-direction:column;gap:14px}
+.chev i{display:block;width:44px;height:44px;border-right:10px solid var(--gd);border-top:10px solid var(--gd);transform:rotate(45deg);opacity:.9}
+.chev i:nth-child(2){opacity:.6}.chev i:nth-child(3){opacity:.3}
+.plate{position:absolute;left:0;right:0;top:1030px;height:320px;background:var(--ink);clip-path:polygon(0 14%,100% 0,100% 100%,0 100%)}
+.plate::before{content:"";position:absolute;left:0;right:0;top:0;height:16px;background:var(--g)}
+.pill{position:absolute;left:70px;top:1062px;background:var(--g);color:var(--ink);font-weight:900;font-size:30px;letter-spacing:9px;padding:9px 26px 9px 30px;transform:skewX(-8deg)}
+body.elite .pill{background:linear-gradient(90deg,#f1d98a,#b8861f)}
+.name{position:absolute;left:62px;right:62px;top:1112px;font-weight:900;font-style:italic;font-size:108px;letter-spacing:-4px;text-transform:uppercase;color:#fff;transform:skewX(-8deg);white-space:nowrap;line-height:1}
+.name em{color:var(--g);font-style:italic}
+.foot{position:absolute;left:70px;right:70px;bottom:34px;display:flex;justify-content:space-between;font-weight:700;font-size:15px;letter-spacing:5px;color:#9aa59b}
+.foot b{color:var(--g)}
+</style></head><body>
+<div class="wm">X7</div><div class="stripes"></div>
+<div class="top">
+  <div class="logo"><b>X7</b>plus<small>FITNESS CLUB</small></div>
+  <div class="ev"><span class="t">COMBAT GAMES</span><div class="s">EGYPT'S ULTIMATE FITNESS TEST</div></div>
+</div>
+<div class="slab"></div>
+<div class="photo"><div class="ph" id="ph">ATHLETE<br>PHOTO</div><img id="photo" alt=""></div>
+<div class="chev"><i></i><i></i><i></i></div>
+<div class="plate"></div>
+<div class="pill" id="role"></div>
+<div class="name" id="name"></div>
+<div class="foot"><span><b>X7PLUS</b> × COMBAT GAMES</span><span>#COMBATGAMES</span></div>
+<script>
+const p=new URLSearchParams(location.search);
+const tier=(p.get('tier')||'premium').toLowerCase();
+document.body.className=tier;
+document.getElementById('role').textContent=tier==='elite'?'ELITE ATHLETE':'PREMIUM ATHLETE';
+const parts=(p.get('name')||'ATHLETE NAME').split(' ');
+const last=parts.length>1?parts.pop():'';
+document.getElementById('name').innerHTML=parts.join(' ')+(last?' <em>'+last+'</em>':'');
+const ph=p.get('photo');
+if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display='block';document.getElementById('ph').style.display='none';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.style.transform='scale('+(p.get('zoom')||1)+')';i.style.transformOrigin=p.get('origin')||'50% 50%';i.style.objectPosition=p.get('pos')||'50% 50%';i.src=ph}else document.body.dataset.ready=1;
+</script></body></html>
