@@ -1,0 +1,66 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+:root{--a:#39ff6a;--a2:#12a83c;--glow:rgba(57,255,106,.45);--tier:#39ff6a}
+body.elite{--a:#00e676;--a2:#006b3a;--glow:rgba(0,230,118,.35);--tier:#e8c36a}
+*{margin:0;box-sizing:border-box}
+body{width:1080px;height:1350px;background:#050505;position:relative;overflow:hidden;font-family:'Inter','Inter Display',Arial,sans-serif;color:#fff}
+.bg{position:absolute;inset:0;background:
+ radial-gradient(ellipse at 50% 38%,#1c1c1c 0%,#080808 60%,#000 100%)}
+.rig{position:absolute;inset:0;opacity:.35;background:
+ repeating-linear-gradient(90deg,transparent 0 118px,#222 118px 124px),
+ repeating-linear-gradient(0deg,transparent 0 160px,#1a1a1a 160px 164px)}
+.grain{position:absolute;inset:0;opacity:.18;mix-blend-mode:overlay;filter:url(#n)}
+.brush{position:absolute;filter:url(#rough);opacity:.95}
+.header{position:absolute;top:40px;left:0;right:0;height:150px;display:flex;align-items:center;justify-content:center;gap:70px}
+.logo{font-style:italic;font-weight:900;font-size:92px;letter-spacing:-4px;transform:skewX(-8deg);line-height:1}
+.logo b{color:var(--a);text-shadow:0 0 30px var(--glow)}
+.logo small{display:block;font-size:17px;letter-spacing:12px;font-weight:600;color:#bbb;margin-top:4px;font-style:normal;text-align:center}
+.div{width:3px;height:130px;background:#fff;opacity:.85}
+.ev{font-style:italic;font-weight:900;font-size:62px;line-height:.9;transform:skewX(-8deg);letter-spacing:-2px;text-align:left}
+.ev small{display:block;font-size:14px;letter-spacing:2px;font-weight:700;font-style:normal;margin-top:8px}
+.frame{position:absolute;left:150px;top:215px;width:780px;height:760px;border:14px solid var(--a);box-shadow:0 0 60px var(--glow),inset 0 0 60px rgba(0,0,0,.8);background:#0b0b0b;overflow:hidden}
+.frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.7));pointer-events:none}
+.frame img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#333;font-weight:800;font-size:36px;letter-spacing:6px;text-align:center}
+.t1{position:absolute;top:995px;left:0;right:0;text-align:center;font-style:italic;font-weight:900;font-size:92px;letter-spacing:-3px;transform:skewX(-8deg);text-shadow:0 4px 0 #000}
+.role{position:absolute;top:1100px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:28px}
+.role i{display:block;flex:none;width:90px;height:5px;background:var(--tier)}
+.role span{white-space:nowrap;font-weight:900;font-size:44px;letter-spacing:12px;color:var(--tier)}
+.name{position:absolute;top:1160px;left:0;right:0;text-align:center;font-style:italic;font-weight:900;font-size:104px;letter-spacing:-3px;text-transform:uppercase;transform:skewX(-8deg);text-shadow:0 4px 0 #000;white-space:nowrap}
+.badge{position:absolute;top:240px;right:175px;background:var(--tier);color:#000;font-weight:900;font-size:22px;letter-spacing:6px;padding:10px 20px;transform:skewX(-8deg)}
+body.elite .frame{border-image:linear-gradient(135deg,#e8c36a,#00e676 40%,#e8c36a) 1}
+body.elite .role span{background:linear-gradient(90deg,#f6e3a1,#c9962f);-webkit-background-clip:text;color:transparent}
+body.elite .role i{background:linear-gradient(90deg,#c9962f,#f6e3a1)}
+</style></head><body>
+<svg width="0" height="0"><defs>
+<filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2"/></filter>
+<filter id="rough" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".035 .12" numOctaves="4" seed="4"/><feDisplacementMap in="SourceGraphic" scale="38"/></filter>
+</defs></svg>
+<div class="bg"></div><div class="rig"></div>
+<svg class="brush" style="left:-60px;bottom:-40px" width="520" height="520"><path d="M0 520 L0 260 Q120 330 200 300 Q260 380 360 380 L520 520Z" fill="var(--a2)"/><path d="M0 520 L0 340 Q150 400 230 390 L340 520Z" fill="var(--a)"/></svg>
+<svg class="brush" style="right:-70px;top:150px" width="360" height="520"><path d="M360 0 L360 520 L250 430 Q200 300 230 240 Q170 150 220 90 Z" fill="var(--a2)"/><path d="M360 120 L360 440 L300 380 Q270 280 290 220Z" fill="var(--a)"/></svg>
+<svg class="brush" style="left:-70px;top:140px" width="280" height="420"><path d="M0 0 L0 420 L90 350 Q140 250 110 190 Q170 110 120 40 Z" fill="var(--a2)" opacity=".8"/></svg>
+<svg class="brush" style="right:-40px;bottom:-30px" width="440" height="360"><path d="M440 360 L440 130 Q330 190 250 160 Q190 230 100 240 L0 360Z" fill="var(--a2)"/><path d="M440 360 L440 210 Q330 250 270 240 L200 360Z" fill="var(--a)"/></svg>
+<div class="grain"></div>
+
+<div class="header">
+  <div class="logo"><b>X7</b>plus<small>FITNESS CLUB</small></div>
+  <div class="div"></div>
+  <div class="ev">COMBAT<br>GAMES<small>EGYPT'S ULTIMATE FITNESS TEST</small></div>
+</div>
+<div class="frame"><div class="ph" id="ph">ATHLETE<br>PHOTO</div><img id="photo" alt="" style="display:none"></div>
+<div class="badge" id="badge"></div>
+<div class="t1">COMBAT GAMES</div>
+<div class="role"><i></i><span id="role"></span><i></i></div>
+<div class="name" id="name"></div>
+<script>
+const p=new URLSearchParams(location.search);
+const tier=(p.get('tier')||'premium').toLowerCase();
+document.body.className=tier;
+document.getElementById('role').textContent=tier==='elite'?'ELITE ATHLETE':'PREMIUM ATHLETE';
+document.getElementById('badge').textContent=tier.toUpperCase();
+document.getElementById('name').textContent=p.get('name')||'ATHLETE NAME';
+const ph=p.get('photo');
+if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display='block';document.getElementById('ph').style.display='none';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.src=ph}else document.body.dataset.ready=1;
+</script></body></html>
