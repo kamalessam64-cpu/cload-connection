@@ -62,5 +62,5 @@ document.getElementById('role').textContent=tier==='elite'?'ELITE ATHLETE':'PREM
 document.getElementById('badge').textContent=tier.toUpperCase();
 document.getElementById('name').textContent=p.get('name')||'ATHLETE NAME';
 const ph=p.get('photo');
-if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display="block";document.body.dataset.photo=1;document.getElementById('ph').style.display='none';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.style.objectPosition=p.get('pos')||'50% 50%';i.src=ph}else document.body.dataset.ready=1;
+if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display="block";document.body.dataset.photo=1;document.getElementById('ph').style.display='none';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.style.transform='scale('+(p.get('zoom')||1)+')';i.style.transformOrigin=p.get('origin')||'50% 50%';i.style.objectPosition=p.get('pos')||'50% 50%';i.src=ph}else document.body.dataset.ready=1;
 </script></body></html>
