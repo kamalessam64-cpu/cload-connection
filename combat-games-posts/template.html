@@ -50,7 +50,6 @@ body[data-photo] .frame::after{display:block}</style></head><body>
   <div class="ev">COMBAT<br>GAMES<small>EGYPT'S ULTIMATE FITNESS TEST</small></div>
 </div>
 <div class="frame"><div class="ph" id="ph">ATHLETE<br>PHOTO</div><img id="photo" alt="" style="display:none"></div>
-<div class="badge" id="badge"></div>
 <div class="t1">COMBAT GAMES</div>
 <div class="role"><i></i><span id="role"></span><i></i></div>
 <div class="name" id="name"></div>
@@ -59,7 +58,6 @@ const p=new URLSearchParams(location.search);
 const tier=(p.get('tier')||'premium').toLowerCase();
 document.body.className=tier;
 document.getElementById('role').textContent=tier==='elite'?'ELITE ATHLETE':'PREMIUM ATHLETE';
-document.getElementById('badge').textContent=tier.toUpperCase();
 document.getElementById('name').textContent=p.get('name')||'ATHLETE NAME';
 const ph=p.get('photo');
 if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display="block";document.body.dataset.photo=1;document.getElementById('ph').style.display='none';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.style.transform='scale('+(p.get('zoom')||1)+')';i.style.transformOrigin=p.get('origin')||'50% 50%';i.style.objectPosition=p.get('pos')||'50% 50%';i.src=ph}else document.body.dataset.ready=1;
