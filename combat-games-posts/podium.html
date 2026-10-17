@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+:root{--g:#a6e62a;--gd:#5a9e12;--ink:#0b0f0c}
+*{margin:0;box-sizing:border-box}
+body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f6faf4;font-family:'Inter','Inter Display',Arial,sans-serif;color:var(--ink)}
+.rays{position:absolute;inset:0;background:repeating-conic-gradient(from 200deg at 78% 36%,rgba(166,230,42,.20) 0 7deg,transparent 7deg 16deg)}
+.logo{position:absolute;left:60px;top:44px;width:150px;height:158px;overflow:hidden;mix-blend-mode:multiply}
+.logo img{position:absolute;width:240px;left:-47px;top:-39px}
+.cong{position:absolute;right:60px;top:70px;background:var(--ink);color:#fff;font-weight:900;font-style:italic;font-size:40px;letter-spacing:2px;padding:8px 26px;transform:skewX(-8deg)}
+.cong b{color:var(--g)}
+.sub{position:absolute;right:60px;top:140px;font-weight:700;font-size:14px;letter-spacing:4px;color:#444}
+.three{position:absolute;left:520px;top:140px;font-size:780px;font-weight:900;font-style:italic;line-height:1;letter-spacing:-30px;color:var(--g);-webkit-text-stroke:6px var(--ink);transform:skewX(-8deg);text-shadow:14px 14px 0 var(--gd)}
+.slab{position:absolute;left:60px;top:250px;width:600px;height:880px;background:var(--ink);transform:translate(22px,22px);clip-path:polygon(9% 0,100% 0,91% 100%,0 100%)}
+.photo{position:absolute;left:60px;top:250px;width:600px;height:880px;clip-path:polygon(9% 0,100% 0,91% 100%,0 100%);background:#dfeadc}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 0%;display:none}
+.place{position:absolute;left:680px;top:760px;background:var(--ink);color:#fff;font-weight:900;font-style:italic;font-size:62px;letter-spacing:-1px;padding:2px 24px 4px;transform:skewX(-8deg)}
+.u21{position:absolute;left:690px;top:870px;background:var(--g);color:var(--ink);font-weight:900;font-style:italic;font-size:64px;letter-spacing:-1px;padding:4px 24px;transform:skewX(-8deg)}
+.cat{position:absolute;left:700px;top:966px;font-weight:800;font-size:26px;letter-spacing:10px;color:var(--gd)}
+.medal{position:absolute;left:700px;top:1020px;font-weight:700;font-size:15px;letter-spacing:4px;color:#555;line-height:1.7}
+.band{position:absolute;left:0;right:0;top:1170px;height:180px;background:var(--g);clip-path:polygon(0 18%,100% 0,100% 100%,0 100%)}
+.band::before{content:"";position:absolute;left:0;right:0;top:0;height:100%;background:repeating-linear-gradient(115deg,transparent 0 40px,rgba(0,0,0,.05) 40px 70px)}
+.name{position:absolute;left:62px;right:62px;top:1198px;font-weight:900;font-style:italic;font-size:104px;letter-spacing:-4px;text-transform:uppercase;color:var(--ink);transform:skewX(-8deg);white-space:nowrap;line-height:1}
+.name em{color:#fff;-webkit-text-stroke:0;text-shadow:0 0 0 #000;font-style:italic}
+.foot{position:absolute;left:70px;right:70px;bottom:22px;display:flex;justify-content:space-between;font-weight:800;font-size:14px;letter-spacing:5px;color:var(--ink)}
+</style></head><body>
+<div class="rays"></div>
+<div class="logo"><img src="assets/x7plus-logo.jpg" alt="X7plus"></div>
+<div class="cong">CONGRATULATIONS <b>!</b></div>
+<div class="sub">ATHLETES PERFORMANCE · X7PLUS TEAM</div>
+<div class="three">3</div>
+<div class="slab"></div>
+<div class="photo"><img id="photo" alt=""></div>
+<div class="place">RD PLACE</div>
+<div class="u21">UNDER 21</div>
+<div class="cat">CATEGORY</div>
+<div class="band"></div>
+<div class="name" id="name"></div>
+<div class="foot"><span>X7PLUS</span><span>#X7PLUS_ATHLETES</span></div>
+<script>
+const p=new URLSearchParams(location.search);
+document.getElementById('name').textContent=p.get('name')||'ATHLETE NAME';
+{const n=document.getElementById('name');n.innerHTML='<span>'+n.innerHTML+'</span>';const sp=n.firstChild;let f=104;while(sp.offsetWidth>940&&f>50){f-=2;n.style.fontSize=f+'px'}}
+const ph=p.get('photo');
+if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display='block';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.style.objectPosition=p.get('pos')||"50% 0%";i.src=ph}else document.body.dataset.ready=1;
+</script></body></html>
