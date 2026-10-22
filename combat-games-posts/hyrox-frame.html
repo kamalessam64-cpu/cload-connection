@@ -1,0 +1,48 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+:root{--g:#a6e62a;--gd:#5a9e12;--ink:#0b0f0c}
+*{margin:0;box-sizing:border-box}
+body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f6faf4;font-family:'Inter','Inter Display',Arial,sans-serif;color:var(--ink)}
+.stripes{position:absolute;left:-100px;top:0;width:1300px;height:420px;background:repeating-linear-gradient(115deg,rgba(166,230,42,.22) 0 30px,transparent 30px 70px)}
+.logo{position:absolute;left:60px;top:44px;width:150px;height:158px;overflow:hidden;mix-blend-mode:multiply}
+.logo img{position:absolute;width:240px;left:-47px;top:-39px}
+.tag{position:absolute;right:60px;top:66px;background:var(--ink);color:#fff;font-weight:900;font-style:italic;font-size:48px;letter-spacing:1px;padding:8px 28px;transform:skewX(-8deg)}
+.tag b{color:var(--g)}
+.tag2{position:absolute;right:60px;top:146px;font-weight:700;font-size:14px;letter-spacing:5px;color:#444}
+.frame{position:absolute;left:130px;top:250px;width:820px;height:745px;background:#e3eddf;box-shadow:0 20px 50px rgba(0,60,20,.28);overflow:hidden}
+.frame img{width:100%;height:100%;object-fit:cover;display:none}
+.ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#9db39a;font-weight:800;font-size:36px;letter-spacing:6px;text-align:center}
+.br{position:absolute;width:110px;height:110px;border:14px solid var(--g)}
+.tl{left:100px;top:220px;border-right:none;border-bottom:none}
+.tr{left:870px;top:220px;border-left:none;border-bottom:none}
+.bl{left:100px;top:915px;border-right:none;border-top:none}
+.br2{left:870px;top:915px;border-left:none;border-top:none}
+.plate{position:absolute;left:0;right:0;top:1040px;height:310px;background:var(--ink);clip-path:polygon(0 12%,100% 0,100% 100%,0 100%)}
+.plate::before{content:"";position:absolute;left:0;right:0;top:0;height:16px;background:var(--g)}
+.role{position:absolute;left:62px;top:1078px;color:var(--g);font-weight:900;font-size:30px;letter-spacing:12px}
+.name{position:absolute;left:62px;right:62px;top:1128px;font-weight:900;font-style:italic;font-size:108px;letter-spacing:-4px;text-transform:uppercase;color:#fff;transform:skewX(-8deg);white-space:nowrap;line-height:1}
+.name em{color:var(--g);font-style:italic}
+.fmt{position:absolute;left:62px;right:62px;bottom:34px;display:flex;justify-content:space-between;font-weight:700;font-size:15px;letter-spacing:5px;color:#9aa59b}
+.fmt b{color:var(--g)}
+</style></head><body>
+<div class="stripes"></div>
+<div class="logo"><img src="assets/x7plus-logo.jpg" alt="X7plus"></div>
+<div class="tag">HYROX <b>×</b> X7PLUS</div>
+<div class="tag2">ATHLETES PERFORMANCE</div>
+<div class="frame"><div class="ph" id="ph">ATHLETE<br>PHOTO</div><img id="photo" alt=""></div>
+<div class="br tl"></div><div class="br tr"></div><div class="br bl"></div><div class="br br2"></div>
+<div class="plate"></div>
+<div class="role">REGISTERED ATHLETE</div>
+<div class="name" id="name"></div>
+<div class="fmt"><span><b>X7PLUS</b> × HYROX</span><span>8 × 1KM RUN · 8 STATIONS</span></div>
+<script>
+const p=new URLSearchParams(location.search);
+const parts=(p.get('name')||'ATHLETE NAME').split(' ');
+const last=parts.length>1?parts.pop():'';
+const n=document.getElementById('name');
+n.innerHTML='<span>'+parts.join(' ')+(last?' <em>'+last+'</em>':'')+'</span>';
+{const sp=n.firstChild;let f=108;while(sp.offsetWidth>940&&f>50){f-=2;n.style.fontSize=f+'px'}}
+const ph=p.get('photo');
+if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display='block';document.getElementById('ph').style.display='none';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.style.transform='scale('+(p.get('zoom')||1)+')';i.style.transformOrigin=p.get('origin')||'50% 50%';i.style.objectPosition=p.get('pos')||'50% 50%';i.src=ph}else document.body.dataset.ready=1;
+</script></body></html>
