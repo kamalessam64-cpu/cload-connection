@@ -33,7 +33,7 @@ body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f6
 <div class="frame"><div class="ph" id="ph">ATHLETE<br>PHOTO</div><img id="photo" alt=""></div>
 <div class="br tl"></div><div class="br tr"></div><div class="br bl"></div><div class="br br2"></div>
 <div class="plate"></div>
-<div class="role">REGISTERED ATHLETE</div>
+<div class="role" id="role">REGISTERED ATHLETE</div>
 <div class="name" id="name"></div>
 <div class="fmt"><span><b>X7PLUS</b> × HYROX</span><span>8 × 1KM RUN · 8 STATIONS</span></div>
 <script>
@@ -43,6 +43,7 @@ const last=parts.length>1?parts.pop():'';
 const n=document.getElementById('name');
 n.innerHTML='<span>'+parts.join(' ')+(last?' <em>'+last+'</em>':'')+'</span>';
 {const sp=n.firstChild;let f=108;while(sp.offsetWidth>940&&f>50){f-=2;n.style.fontSize=f+'px'}}
+if(p.get('div')){const r=document.getElementById('role');r.textContent='REGISTERED · '+p.get('div').toUpperCase();r.style.fontSize='28px';r.style.letterSpacing='8px'}
 const ph=p.get('photo');
 if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display='block';document.getElementById('ph').style.display='none';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.style.transform='scale('+(p.get('zoom')||1)+')';i.style.transformOrigin=p.get('origin')||'50% 50%';i.style.objectPosition=p.get('pos')||'50% 50%';i.src=ph}else document.body.dataset.ready=1;
 </script></body></html>
