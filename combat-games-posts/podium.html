@@ -32,8 +32,8 @@ body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f6
 <div class="slab"></div>
 <div class="photo"><img id="photo" alt=""></div>
 <div class="place">RD PLACE</div>
-<div class="u21">UNDER 21</div>
-<div class="cat">CATEGORY</div>
+<div class="u21" id="u21">UNDER 21</div>
+<div class="cat" id="cat">CATEGORY</div>
 <div class="band"></div>
 <div class="name" id="name"></div>
 <div class="foot"><span>X7PLUS</span><span>#X7PLUS_ATHLETES</span></div>
@@ -41,6 +41,8 @@ body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f6
 const p=new URLSearchParams(location.search);
 document.getElementById('name').textContent=p.get('name')||'ATHLETE NAME';
 {const n=document.getElementById('name');n.innerHTML='<span>'+n.innerHTML+'</span>';const sp=n.firstChild;let f=104;while(sp.offsetWidth>940&&f>50){f-=2;n.style.fontSize=f+'px'}}
+if(p.get('tag'))document.getElementById('u21').textContent=p.get('tag');
+if(p.get('cat'))document.getElementById('cat').textContent=p.get('cat');
 const ph=p.get('photo');
 if(ph){const i=document.getElementById('photo');i.onload=()=>{i.style.display='block';document.body.dataset.ready=1};i.onerror=()=>document.body.dataset.ready=1;i.style.objectPosition=p.get('pos')||"50% 0%";i.src=ph}else document.body.dataset.ready=1;
 </script></body></html>
