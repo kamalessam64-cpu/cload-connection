@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>X7plus LCD Slideshow</title>
+<style>
+html,body{margin:0;height:100%;background:#000;overflow:hidden;cursor:none}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.s{position:absolute;max-width:100vw;max-height:100vh;width:100vw;height:100vh;object-fit:contain;opacity:0;transition:opacity 1s ease}
+.s.on{opacity:1}
+#hint{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);font:14px/1.4 Arial,sans-serif;color:#fff;background:rgba(0,0,0,.65);padding:8px 14px;border-radius:6px;opacity:0;transition:opacity .4s;pointer-events:none}
+#hint.show{opacity:1}
+</style></head><body>
+<div id="stage"></div><div id="hint">Click or press F for full screen · Space = pause · ←/→ = previous/next</div>
+<script>
+const SECONDS=8; // time each slide stays on screen
+const stage=document.getElementById('stage'),hint=document.getElementById('hint');
+let imgs=[],i=0,timer=null,paused=false;
+function show(n){i=(n+imgs.length)%imgs.length;imgs.forEach((e,k)=>e.classList.toggle('on',k===i))}
+function next(){show(i+1)}
+function start(){clearInterval(timer);timer=setInterval(()=>{if(!paused)next()},SECONDS*1000)}
+const list=["01-signature-khadija-osama.png", "02-signature-khadija-osama.png", "03-signature-areej-mohamed.png", "04-signature-mai-ayman.png", "05-signature-aya-abd-elraoof.png", "06-signature-abdelrahman-oliemy.png", "07-signature-nada-hazem.png", "08-signature-ganna-hassan.png", "09-signature-rofida-khalid.png", "10-hyrox-judy-ali.png", "11-hyrox-ahmed-hani.png", "12-hyrox-fayrouz-amr.png", "13-hyrox-habiba-hosam.png", "14-hyrox-hanin-hosam.png", "15-hyrox-hosam-enal.png", "16-hyrox-rofida-khalid.png", "17-hyrox-khadija-osama.png", "18-hyrox-mohamed-abogabal.png", "19-podium-khadija-osama.png", "20-podium-judy-ali.png", "21-podium-rofida-khalid.png"];
+list.forEach(f=>{const e=new Image();e.className='s';e.src=f;stage.appendChild(e);imgs.push(e)});
+show(0);start();
+function fs(){const d=document.documentElement;(d.requestFullscreen||d.webkitRequestFullscreen||function(){}).call(d)}
+addEventListener('click',fs);
+addEventListener('keydown',e=>{
+ if(e.key==='f'||e.key==='F')fs();
+ else if(e.key===' '){paused=!paused;hint.textContent=paused?'Paused':'Playing';hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),1200)}
+ else if(e.key==='ArrowRight'){next();start()} else if(e.key==='ArrowLeft'){show(i-1);start()}
+});
+hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),4000);
+// reload once an hour so a kiosk always picks up updated slides
+setTimeout(()=>location.reload(),3600*1000);
+</script></body></html>

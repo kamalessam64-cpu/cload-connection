@@ -1,0 +1,23 @@
+[
+ {"d":"signature","name":"Khadija Osama","photo":"photos/khadija-osama.jpg","pos":"50% 58%","zoom":2,"origin":"53% 12%"},
+ {"d":"signature","name":"Khadija Osama","photo":"photos/khadija-osama-2.jpg","pos":"50% 0%","zoom":1.6,"origin":"61% 39%"},
+ {"d":"signature","name":"Areej Mohamed","photo":"photos/areej-mohamed.jpg","pos":"50% 15%"},
+ {"d":"signature","name":"Mai Ayman","photo":"photos/mai-ayman.jpg","pos":"50% 35%"},
+ {"d":"signature","name":"Aya Abd Elraoof","photo":"photos/aya-abd-elraoof.jpg","pos":"50% 50%","zoom":2.3,"origin":"62% 74%"},
+ {"d":"signature","name":"Abdelrahman Oliemy","photo":"photos/abdelrahman-oliemy.jpg","pos":"50% 8%"},
+ {"d":"signature","name":"Nada Hazem","photo":"photos/nada-hazem.jpg","pos":"50% 50%","zoom":1.8,"origin":"38% 66%"},
+ {"d":"signature","name":"Ganna Hassan","photo":"photos/ganna-hassan.jpg","pos":"50% 100%","zoom":1.55,"origin":"44% 23%"},
+ {"d":"signature","name":"Rofida Khalid","photo":"photos/rofida-khalid.jpg","pos":"50% 23%"},
+ {"d":"hyrox","name":"Judy Ali","photo":"photos/judy-ali-crop.jpg","div":"Solo Base Women"},
+ {"d":"hyrox","name":"Ahmed Hani","photo":"photos/ahmed-hani.jpg","div":"Pair Base Men","pos":"50% 56%"},
+ {"d":"hyrox","name":"Fayrouz Amr","photo":"photos/fayrouz-amr.jpg","div":"Pair Women","pos":"50% 0%"},
+ {"d":"hyrox","name":"Habiba Hosam","photo":"photos/habiba-hosam.jpg","div":"Pair Women","pos":"50% 100%","zoom":1.9,"origin":"48% 36%"},
+ {"d":"hyrox","name":"Hanin Hosam","photo":"photos/hanin-hosam.jpg","div":"Pair Mixed","pos":"50% 100%","zoom":1.9,"origin":"50% 27%"},
+ {"d":"hyrox","name":"Hosam Enal","photo":"photos/hosam-enal.jpg","div":"Pair Mixed","pos":"38% 50%","zoom":1.7,"origin":"50% 34%"},
+ {"d":"hyrox","name":"Rofida Khalid","photo":"photos/rofida-khalid-hyrox-soft.jpg","div":"Pair Base Women","pos":"50% 100%","zoom":1.9,"origin":"83% 27%"},
+ {"d":"hyrox","name":"Khadija Osama","photo":"photos/khadija-osama-hyrox.jpg","div":"Pair Mixed","pos":"50% 55%","zoom":1.7,"origin":"55% 29%"},
+ {"d":"hyrox","name":"Mohamed Abogabal","photo":"photos/mohamed-abogabal.jpg","div":"Mixed Relay","pos":"50% 0%","zoom":1.35,"origin":"38% 11%"},
+ {"d":"podium","name":"Khadija Osama","photo":"photos/khadija-osama-podium.jpg","pos":"50% 0%","tag":"UNDER 21","cat":"UNDER21 OPEN","comp":"STNDRD RACE"},
+ {"d":"podium","name":"Judy Ali","photo":"photos/judy-ali-podium2-soft.jpg","pos":"50% 0%","tag":"UNDER 21","cat":"SOLO BASE WOMEN","comp":"ALPHAX HYBRID FITNESS RACE"},
+ {"d":"podium","name":"Rofida Khalid","photo":"photos/rofida-khalid-podium.jpg","pos":"50% 0%","tag":"BRONZE","cat":"X7PLUS ATHLETE","comp":"ALPHAX HYBRID FITNESS RACE"}
+]

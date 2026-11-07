@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="lcd-common.css">
+<style>
+.stripes{position:absolute;left:-100px;top:0;width:2200px;height:300px;background:repeating-linear-gradient(115deg,rgba(166,230,42,.22) 0 34px,transparent 34px 80px);opacity:.9}
+.frame{position:absolute;left:110px;top:80px;width:1025px;height:931px;background:#e3eddf;box-shadow:0 24px 60px rgba(0,60,20,.28);overflow:hidden}
+.frame img{width:100%;height:100%;object-fit:cover;display:none}
+.br{position:absolute;width:130px;height:130px;border:16px solid var(--g)}
+.tl{left:80px;top:50px;border-right:none;border-bottom:none}.tr{left:1035px;top:50px;border-left:none;border-bottom:none}
+.bl{left:80px;top:911px;border-right:none;border-top:none}.brr{left:1035px;top:911px;border-left:none;border-top:none}
+.logo{left:1205px;top:40px}
+.tag{position:absolute;right:60px;top:84px;background:var(--ink);color:#fff;font-weight:900;font-style:italic;font-size:44px;padding:8px 26px;transform:skewX(-8deg)}
+.tag b{color:var(--g)}
+.tag2{position:absolute;right:60px;top:156px;font-weight:700;font-size:15px;letter-spacing:5px;color:#444}
+.plate{position:absolute;left:1190px;top:330px;width:730px;height:580px;background:var(--ink);clip-path:polygon(8% 0,100% 0,100% 100%,0 100%)}
+.plate::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:var(--g)}
+.reg{position:absolute;left:1270px;top:376px;color:var(--g);font-weight:900;font-size:30px;letter-spacing:12px}
+.n{position:absolute;left:1260px;width:600px;font-weight:900;font-style:italic;letter-spacing:-4px;text-transform:uppercase;line-height:1;transform:skewX(-8deg);white-space:nowrap}
+#n1{top:430px;color:#fff}#n2{top:570px;color:var(--g)}
+.div{position:absolute;left:1270px;top:750px;background:var(--g);color:var(--ink);font-weight:900;font-size:32px;letter-spacing:8px;padding:10px 26px 10px 30px;transform:skewX(-8deg);text-transform:uppercase}
+.foot{position:absolute;left:1270px;right:70px;top:950px;white-space:nowrap;display:flex;font-weight:800;font-size:20px;letter-spacing:5px;color:#444}
+.foot b{color:var(--gd)}
+</style></head><body>
+<div class="stripes"></div>
+<div class="frame"><div class="ph" id="ph">ATHLETE<br>PHOTO</div><img id="photo" alt=""></div>
+<div class="br tl"></div><div class="br tr"></div><div class="br bl"></div><div class="br brr"></div>
+<div class="logo"><img src="assets/x7plus-logo.jpg" alt=""></div>
+<div class="tag">HYROX <b>×</b> X7PLUS</div><div class="tag2">ATHLETES PERFORMANCE</div>
+<div class="plate"></div>
+<div class="reg">REGISTERED</div>
+<div class="n" id="n1"></div><div class="n" id="n2"></div>
+<div class="div" id="div"></div>
+<div class="foot"><span>8 × 1KM RUN · 8 STATIONS</span></div>
+<script src="lcd-common.js"></script>
+<script>
+const p=new URLSearchParams(location.search);
+const [a,b]=twoLines((p.get('name')||'ATHLETE NAME'));
+for(const [id,t] of [['n1',a],['n2',b]]){const e=document.getElementById(id);e.innerHTML='<span>'+t+'</span>';fit(e,590,116)}
+document.getElementById('div').textContent=p.get('div')||'ATHLETE';
+setPhoto(p,'photo','ph');
+</script></body></html>

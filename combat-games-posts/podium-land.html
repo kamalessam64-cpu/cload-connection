@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="lcd-common.css">
+<style>
+.rays{position:absolute;inset:0;background:repeating-conic-gradient(from 195deg at 62% 42%,rgba(166,230,42,.20) 0 7deg,transparent 7deg 16deg)}
+.logo{left:1670px;top:30px}
+.three{position:absolute;left:720px;top:30px;font-size:800px;font-weight:900;font-style:italic;line-height:1;letter-spacing:-30px;color:var(--g);-webkit-text-stroke:6px var(--ink);transform:skewX(-8deg);text-shadow:14px 14px 0 var(--gd)}
+.cong{position:absolute;left:1160px;top:262px;background:var(--ink);color:#fff;font-weight:900;font-style:italic;font-size:46px;letter-spacing:2px;padding:8px 26px;transform:skewX(-8deg)}
+.cong b{color:var(--g)}
+.comp{position:absolute;left:1172px;top:350px;font-weight:800;font-size:26px;letter-spacing:6px;color:var(--ink)}
+.band{position:absolute;left:0;right:0;top:870px;height:210px;background:var(--g);clip-path:polygon(0 16%,100% 0,100% 100%,0 100%)}
+.band::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 40px,rgba(0,0,0,.05) 40px 70px)}
+.slab{position:absolute;left:70px;top:56px;width:660px;height:968px;background:var(--ink);transform:translate(24px,24px);clip-path:polygon(9% 0,100% 0,91% 100%,0 100%)}
+.photo{position:absolute;left:70px;top:56px;width:660px;height:968px;clip-path:polygon(9% 0,100% 0,91% 100%,0 100%);background:#dfeadc;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:none}
+.place{position:absolute;left:1170px;top:430px;background:var(--ink);color:#fff;font-weight:900;font-style:italic;font-size:78px;letter-spacing:-1px;padding:2px 28px 4px;transform:skewX(-8deg)}
+.tagu{position:absolute;left:1180px;top:550px;background:var(--g);color:var(--ink);font-weight:900;font-style:italic;font-size:70px;letter-spacing:-1px;padding:4px 26px;transform:skewX(-8deg)}
+.cat{position:absolute;left:1190px;top:665px;font-weight:800;font-size:30px;letter-spacing:10px;color:var(--gd)}
+.name{position:absolute;left:810px;right:70px;top:905px;font-weight:900;font-style:italic;letter-spacing:-4px;text-transform:uppercase;color:var(--ink);transform:skewX(-8deg);white-space:nowrap;line-height:1}
+.foot{position:absolute;left:810px;right:70px;bottom:20px;display:flex;justify-content:space-between;font-weight:800;font-size:16px;letter-spacing:5px}
+</style></head><body>
+<div class="rays"></div>
+<div class="logo"><img src="assets/x7plus-logo.jpg" alt=""></div>
+<div class="three">3</div>
+<div class="cong">CONGRATULATIONS <b>!</b></div>
+<div class="comp" id="comp"></div>
+<div class="band"></div>
+<div class="slab"></div>
+<div class="photo"><img id="photo" alt=""></div>
+<div class="place">RD PLACE</div>
+<div class="tagu" id="tag">UNDER 21</div>
+<div class="cat" id="cat"></div>
+<div class="name" id="name"></div>
+<div class="foot"><span>X7PLUS</span><span>#X7PLUS_ATHLETES</span></div>
+<script src="lcd-common.js"></script>
+<script>
+const p=new URLSearchParams(location.search);
+document.getElementById('comp').textContent=p.get('comp')||'';
+document.getElementById('tag').textContent=p.get('tag')||'UNDER 21';
+document.getElementById('cat').textContent=p.get('cat')||'';
+const n=document.getElementById('name');n.innerHTML='<span>'+(p.get('name')||'ATHLETE NAME')+'</span>';fit(n,1030,120);
+setPhoto(p,'photo',null);
+</script></body></html>
