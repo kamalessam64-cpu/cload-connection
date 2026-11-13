@@ -18,3 +18,31 @@ async function ready(){await document.fonts.ready;await Promise.all([...document
 function textW(e){const r=document.createRange();r.selectNodeContents(e);return r.getBoundingClientRect().width}
 function fit(e,max=1000){let f=parseFloat(getComputedStyle(e).fontSize);let n=0;while(textW(e)>max&&f>30&&n++<80){f*=.97;e.style.fontSize=f+'px'}}
 function centerX(e,dx=0){e.style.left=((W-e.offsetWidth)/2+dx)+'px'}
+// ---- explainer-high-energy look: HUD viewfinder frame, seeded film grain, vignette, VIDEO/seek contract ----
+function seeded(s){return()=>(s=(s+0x6D2B79F5)|0,s=Math.imul(s^(s>>>15),1|s),s^=s+Math.imul(s^(s>>>7),61|s),((s^(s>>>14))>>>0)/4294967296)}
+function addFinish(scenes){ // scenes: [[startTime,'LABEL'],...]
+  const top=document.body;
+  const vig=mk(top,'abs','',{width:W+'px',height:H+'px',pointerEvents:'none',background:'radial-gradient(ellipse 75% 60% at 50% 50%,transparent 55%,rgba(0,0,0,.38) 100%)',zIndex:50});
+  // grain: 6 seeded tiles drawn once, cycled per frame
+  const R=seeded(2026),tiles=[];
+  for(let k=0;k<6;k++){const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d'),im=g.createImageData(256,256);
+    for(let i=0;i<im.data.length;i+=4){const v=R()*255;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255}g.putImageData(im,0,0);tiles.push(c.toDataURL())}
+  const grain=mk(top,'abs','',{width:W+'px',height:H+'px',pointerEvents:'none',opacity:.07,mixBlendMode:'overlay',zIndex:51});
+  const hud=mk(top,'abs','',{width:W+'px',height:H+'px',pointerEvents:'none',zIndex:52,color:'#fff',textShadow:'0 0 4px rgba(0,0,0,.85),0 0 1px #000',fontFamily:"'DejaVu Sans Mono','Liberation Mono',monospace",fontSize:'22px',letterSpacing:'3px',opacity:.8});
+  const br=(css)=>mk(hud,'abs','',Object.assign({width:'54px',height:'54px',borderColor:'#fff',borderStyle:'solid',borderWidth:'0',filter:'drop-shadow(0 0 2px rgba(0,0,0,.8))'},css));
+  br({left:'34px',top:'34px',borderLeftWidth:'3px',borderTopWidth:'3px'});br({right:'34px',left:'auto',top:'34px',borderRightWidth:'3px',borderTopWidth:'3px'});
+  br({left:'34px',bottom:'34px',top:'auto',borderLeftWidth:'3px',borderBottomWidth:'3px'});br({right:'34px',left:'auto',bottom:'34px',top:'auto',borderRightWidth:'3px',borderBottomWidth:'3px'});
+  const sc=mk(hud,'abs','',{right:'110px',left:'auto',top:'46px'});
+  const lab=mk(hud,'abs','',{left:'110px',bottom:'46px',top:'auto'});
+  const tc=mk(hud,'abs','',{right:'110px',left:'auto',bottom:'46px',top:'auto'});
+  const tag=mk(hud,'abs','X7PLUS / BLACK FRIDAY',{left:'110px',top:'46px'});
+  return function(t){
+    grain.style.backgroundImage=`url(${tiles[Math.floor(t*24)%tiles.length]})`;
+    let i=0;for(let k=0;k<scenes.length;k++)if(t>=scenes[k][0])i=k;
+    sc.textContent=`SCENE ${String(i+1).padStart(2,'0')} / ${String(scenes.length).padStart(2,'0')}`;
+    lab.textContent=scenes[i][1];
+    const f=Math.floor(t*30)%30,s=Math.floor(t);
+    tc.innerHTML=`<span style="color:#ff2a2a">●</span> 00:${String(s).padStart(2,'0')}:${String(f).padStart(2,'0')}`;
+  };
+}
+function contract(scenes){const fin=addFinish(scenes);const r=window.render;window.render=t=>{r(t);fin(t)};window.seek=window.render;window.VIDEO={w:W,h:H,duration:window.DURATION}}

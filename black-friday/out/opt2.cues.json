@@ -1,0 +1,70 @@
+[
+ {
+  "t": 1.5,
+  "type": "build_up",
+  "dur": 0.21428571428571427,
+  "desc": "riser"
+ },
+ {
+  "t": 3.429,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 3.857,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 4.286,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 4.714,
+  "type": "scene_cut",
+  "desc": "carried transition"
+ },
+ {
+  "t": 6.429,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 6.857,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 7.286,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 7.714,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 8.143,
+  "type": "reveal",
+  "desc": "big hit"
+ },
+ {
+  "t": 7.929,
+  "type": "build_up",
+  "dur": 0.21428571428571427,
+  "desc": "riser"
+ },
+ {
+  "t": 10.286,
+  "type": "build_up",
+  "dur": 0.8571428571428571,
+  "desc": "riser"
+ },
+ {
+  "t": 15,
+  "type": "reveal",
+  "desc": "big hit"
+ }
+]

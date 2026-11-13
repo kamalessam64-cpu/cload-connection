@@ -59,10 +59,11 @@ EV={'riser':lambda a:riser(a or 1.0),'boom':lambda a:boom(),'bigboom':lambda a:b
  'tick':lambda a:tick(),'hit':lambda a:hit(),'drop':lambda a:k808(1.6,46),'kick808':lambda a:mix(k808(1.0,50),kick(.3)*.8),
  'roll':lambda a:roll(a or .4),'edmdrop':lambda a:mix(kick(.45),boom(1.2)*.6)}
 GAIN={'riser':.55,'boom':.9,'bigboom':1.0,'impact':.9,'whoosh':.5,'tick':.5,'hit':.8,'drop':1.0,'kick808':.9,'roll':.5,'edmdrop':1.0}
-opt=sys.argv[1];J=json.load(open(f'out/{opt}.events.json'));dur=J['dur']
+opt=sys.argv[1];BED=len(sys.argv)>2 and sys.argv[2]=='--bed';J=json.load(open(f'out/{opt}.events.json'));dur=J['dur']
 buf=np.zeros(int((dur+1)*SR))
 for ev in J['events']:
     name=ev[1];arg=ev[2] if len(ev)>2 else None
+    if BED and name not in('drop','kick808'):continue
     add(buf,EV[name](arg),ev[0],GAIN[name])
 def bed(bpm,start,end,style):
     bt=60/bpm;i=0;t=start
@@ -99,8 +100,8 @@ elif opt=='opt2':
     bt=60/140;bed(140,4*bt,dur-.4,'trap')
 else:
     bt=60/128;bed(128,7*bt,24*bt,'house');bed(128,25*bt,dur-.3,'house')
-buf=buf[:int(dur*SR)];buf=np.tanh(buf*1.1);buf*=np.clip((dur-np.arange(len(buf))/SR)/.35,0,1)
+L=int(dur*SR)+(int(.003*SR) if BED else 0);buf=buf[:L];buf=np.tanh(buf*1.1);buf*=np.clip((dur-np.arange(len(buf))/SR)/.35,0,1)
 buf=buf/np.max(np.abs(buf))*.92
 st=np.stack([buf,np.roll(buf,int(.0004*SR))],1)
-w=wave.open(f'out/{opt}.wav','wb');w.setnchannels(2);w.setsampwidth(2);w.setframerate(SR);w.writeframes((st*32767).astype('<i2').tobytes());w.close()
+w=wave.open(f'out/{opt}{"-bed" if BED else ""}.wav','wb');w.setnchannels(2);w.setsampwidth(2);w.setframerate(SR);w.writeframes((st*32767).astype('<i2').tobytes());w.close()
 print(opt,'audio',round(len(buf)/SR,1),'s')

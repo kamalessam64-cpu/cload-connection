@@ -1,0 +1,91 @@
+[
+ {
+  "t": 0,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 0.469,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 0.938,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 1.172,
+  "type": "build_up",
+  "dur": 0.703125,
+  "desc": "roll"
+ },
+ {
+  "t": 1.406,
+  "type": "reveal",
+  "desc": "impact"
+ },
+ {
+  "t": 1.875,
+  "type": "reveal",
+  "desc": "impact"
+ },
+ {
+  "t": 2.344,
+  "type": "scene_cut",
+  "desc": "carried transition"
+ },
+ {
+  "t": 2.813,
+  "type": "build_up",
+  "dur": 0.46875,
+  "desc": "riser"
+ },
+ {
+  "t": 3.281,
+  "type": "reveal",
+  "desc": "big hit"
+ },
+ {
+  "t": 6.094,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 7.031,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 7.969,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 8.672,
+  "type": "build_up",
+  "dur": 0.234375,
+  "desc": "roll"
+ },
+ {
+  "t": 8.906,
+  "type": "reveal",
+  "desc": "big hit"
+ },
+ {
+  "t": 11.25,
+  "type": "build_up",
+  "dur": 0.46875,
+  "desc": "riser"
+ },
+ {
+  "t": 11.719,
+  "type": "reveal",
+  "desc": "big hit"
+ },
+ {
+  "t": 15.938,
+  "type": "reveal",
+  "desc": "big hit"
+ }
+]

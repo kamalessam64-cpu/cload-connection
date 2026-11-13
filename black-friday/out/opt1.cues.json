@@ -1,0 +1,166 @@
+[
+ {
+  "t": 0,
+  "type": "build_up",
+  "dur": 0.8,
+  "desc": "riser"
+ },
+ {
+  "t": 0.8,
+  "type": "reveal",
+  "desc": "impact"
+ },
+ {
+  "t": 1.4,
+  "type": "reveal",
+  "desc": "impact"
+ },
+ {
+  "t": 1.8,
+  "type": "build_up",
+  "dur": 0.8,
+  "desc": "riser"
+ },
+ {
+  "t": 2.4,
+  "type": "scene_cut",
+  "desc": "carried transition"
+ },
+ {
+  "t": 2.7,
+  "type": "reveal",
+  "desc": "impact"
+ },
+ {
+  "t": 3.9,
+  "type": "build_up",
+  "dur": 0.7,
+  "desc": "riser"
+ },
+ {
+  "t": 4.6,
+  "type": "reveal",
+  "desc": "impact"
+ },
+ {
+  "t": 4.6,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 4.68,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 4.76,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 4.84,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 4.92,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 5,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 5.08,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 5.16,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 5.239999999999999,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 5.319999999999999,
+  "type": "hover_or_small_ui",
+  "desc": "counter tick"
+ },
+ {
+  "t": 5.4,
+  "type": "reveal",
+  "desc": "big hit"
+ },
+ {
+  "t": 6.2,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 6.8,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 7.3,
+  "type": "scene_cut",
+  "desc": "carried transition"
+ },
+ {
+  "t": 7.6,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 8,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 8.4,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 8.8,
+  "type": "reveal",
+  "desc": "big hit"
+ },
+ {
+  "t": 9.4,
+  "type": "reveal",
+  "desc": "impact"
+ },
+ {
+  "t": 9.75,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 10.2,
+  "type": "reveal",
+  "desc": "word slam"
+ },
+ {
+  "t": 10.4,
+  "type": "reveal",
+  "desc": "big hit"
+ },
+ {
+  "t": 10.9,
+  "type": "build_up",
+  "dur": 0.5,
+  "desc": "riser"
+ },
+ {
+  "t": 15.6,
+  "type": "reveal",
+  "desc": "big hit"
+ }
+]
