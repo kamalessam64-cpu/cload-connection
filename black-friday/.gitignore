@@ -2,3 +2,6 @@ out/*_silent.mp4
 out/sound-opt*/
 out/*.wav
 music/
+pain/out/
+pain/fonts/
+pain/test.mp3

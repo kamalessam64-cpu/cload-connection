@@ -1,0 +1,145 @@
+<!doctype html><html lang="ar"><head><meta charset="utf-8"><link rel="stylesheet" href="../engine.css"><link rel="stylesheet" href="fonts.css">
+<style>
+.ar{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;font-family:'Cairo',sans-serif;font-weight:900;line-height:1.15;white-space:nowrap}
+.sub{position:absolute;left:30px;width:1020px;bottom:300px;text-align:center;direction:rtl;font-family:'Cairo',sans-serif;font-weight:800;font-size:46px;white-space:nowrap;line-height:1.65;color:#fff}
+.sub span{background:rgba(11,15,12,.82);padding:6px 22px;border-radius:14px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.card{position:absolute;border-radius:36px}
+.btn{position:absolute;left:90px;width:900px;height:190px;border-radius:100px;background:var(--ink);color:var(--g);font-family:'Cairo';font-weight:900;font-size:84px;display:flex;align-items:center;justify-content:center;direction:rtl}
+</style></head><body><div id="world"></div>
+<script src="../engine.js"></script>
+<script>
+/* BEAT SHEET (t s | visual | sound)
+ 0.0  S1 grey calendar, "السبت ١/٢/٣", "هبدأ" crossed out      | dark drone, ticks 2.0 3.0 3.9
+ 4.7  S2 stairs + breathing, tight T-shirt                         | whoosh
+ 8.3  S3 membership card, progress stops at week 1, "بطّلت" stamp | whoosh, punch 10.3
+11.3  S4 black, "المشكلة مش فيك." / "...كنت لوحدك" single dot      | low impact, riser 13.3 -> flood 14.3 big hit
+14.3  S5 lime: logo, two dots walking together, "خطوة بخطوة"     | beat drops
+17.9  S6 BLACK FRIDAY ٣٠٪ slam                                    | riser -> big hit 18.6
+20.5  S7 CTA: DM button, "ابدأ رحلتك... وغيّر حياتك مع X7"         | pop 22.0, end hit 26.8
+ Voice-over lines are in script-ar.txt; captions below follow the same timing. */
+window.DURATION=28;
+window.EVENTS=[[2.0,'tick'],[3.0,'tick'],[3.9,'tick'],[4.6,'whoosh'],[8.2,'whoosh'],[10.3,'hit'],[11.35,'impact'],[13.3,'riser',1.0],[14.3,'bigboom'],
+ [17.8,'whoosh'],[17.9,'riser',.7],[18.6,'bigboom'],[20.4,'whoosh'],[22.0,'hit'],[26.8,'bigboom']];
+const LINES=[[0.3,4.6,'كل سبت تقول: خلاص، من النهارده هبدأ…<br>ويعدّي السبت، واللي بعده، واللي بعده.'],
+ [4.8,8.2,'تطلع السلم تنهج…<br>والهدوم اللي بتحبها بقت ضيقة عليك.'],
+ [8.4,11.2,'واشتركت في جيم قبل كده…<br>روحت أسبوع، وبطّلت.'],
+ [11.4,14.4,'المشكلة مش فيك.<br>المشكلة إنك كنت لوحدك.'],
+ [14.6,17.8,'في X7، مش هتبقى لوحدك…<br>هنمشي معاك خطوة بخطوة.'],
+ [18.0,20.4,'وفي البلاك فرايداي…<br>خصم ٣٠٪'],
+ [20.6,26.9,'متستناش السبت الجاي.<br>ابعتلنا رسالة دلوقتي… ابدأ رحلتك، وغيّر حياتك مع X7.']];
+const w=document.getElementById('world');
+const bg=mk(w,'abs','',{width:W+'px',height:H+'px',background:'#161917'});
+const stage=mk(w,'abs','',{width:W+'px',height:H+'px'});
+const A=(p,html,css)=>mk(p,'ar',html,css);
+// S1 calendar
+const s1=mk(stage,'abs');
+const cal=mk(s1,'card','',{left:'190px',top:'360px',width:'700px',height:'760px',background:'#e9ece8',boxShadow:'0 30px 60px rgba(0,0,0,.45)'});
+const calTop=mk(cal,'abs','',{left:0,top:0,width:'700px',height:'190px',background:'#2a2e2b',borderRadius:'36px 36px 0 0'});
+const calDay=A(cal,'السبت ١',{top:'28px',width:'700px',fontSize:'100px',color:'#fff'});
+const calWord=A(cal,'هبدأ',{top:'280px',width:'700px',fontSize:'250px',color:'#2a2e2b'});
+const strike=mk(cal,'abs','',{left:'110px',top:'470px',height:'30px',background:'var(--g)',borderRadius:'15px',boxShadow:'0 0 0 6px #2a2e2b',transform:'rotate(-8deg)'});
+const s1big=A(s1,'من النهارده…',{top:'1180px',fontSize:'120px',color:'#cfd5cf'});
+// S2 stairs
+const s2=mk(stage,'abs');
+const stairs=mk(s2,'abs','<svg width="900" height="700" viewBox="0 0 900 700"><path d="M40 660 H200 V540 H360 V420 H520 V300 H680 V180 H860" fill="none" stroke="#cfd5cf" stroke-width="22" stroke-linejoin="round"/></svg>',{left:'90px',top:'330px'});
+const climber=mk(s2,'abs','',{width:'70px',height:'70px',borderRadius:'50%',background:'#fff'});
+const breath=[0,1,2].map(i=>A(s2,'هه',{fontSize:'70px',color:'#8f978f',width:'200px',left:'0px'}));
+const shirt=mk(s2,'abs','<svg width="520" height="520" viewBox="0 0 520 520"><path d="M170 40 L60 110 L100 210 L150 185 L150 480 L370 480 L370 185 L420 210 L460 110 L350 40 C330 90 190 90 170 40Z" fill="#cfd5cf"/></svg>',{left:'280px',top:'420px',transformOrigin:'50% 50%'});
+const s2big=A(s2,'بتنهج',{top:'1110px',fontSize:'190px',color:'#fff'});
+// S3 membership
+const s3=mk(stage,'abs');
+const mcard=mk(s3,'card','',{left:'120px',top:'400px',width:'840px',height:'520px',background:'#2a2e2b',boxShadow:'0 30px 60px rgba(0,0,0,.5)'});
+mk(mcard,'abs','',{left:0,top:'70px',width:'840px',height:'80px',background:'#4a514b'});
+A(mcard,'اشتراك جيم',{top:'200px',width:'840px',fontSize:'84px',color:'#fff'});
+const barBg=mk(mcard,'abs','',{left:'80px',top:'360px',width:'680px',height:'40px',borderRadius:'20px',background:'#4a514b'});
+const bar=mk(barBg,'abs','',{right:0,left:'auto',top:0,height:'40px',borderRadius:'20px',background:'#cfd5cf'});
+const wk=A(mcard,'أسبوع ١ من ٥٢',{top:'415px',width:'840px',fontSize:'48px',color:'#cfd5cf',fontWeight:800});
+const stamp=A(s3,'بطّلت',{top:'560px',fontSize:'230px',color:'#fff',border:'14px solid #fff',width:'640px',left:'220px',borderRadius:'30px',lineHeight:'1.25'});
+// S4 pivot
+const s4=mk(stage,'abs');
+const p1=A(s4,'المشكلة مش فيك.',{top:'560px',fontSize:'150px',color:'#fff'});
+const p2=A(s4,'المشكلة إنك كنت',{top:'560px',fontSize:'120px',color:'#8f978f'});
+const p3=A(s4,'لوحدك',{top:'720px',fontSize:'260px',color:'#fff'});
+const dot=mk(s4,'abs','',{left:'510px',top:'1180px',width:'60px',height:'60px',borderRadius:'50%',background:'var(--g)'});
+// S5 together
+const s5=mk(stage,'abs');
+const lg5=logoImg(s5,'../assets/logo-color.png',360);
+const t5a=A(s5,'مش هتبقى لوحدك',{top:'700px',fontSize:'130px',color:'var(--ink)'});
+const path5=mk(s5,'abs','<svg width="1080" height="420" viewBox="0 0 1080 420"><path id="pp" d="M80 360 C 300 360, 300 200, 540 200 S 800 60, 1000 60" fill="none" stroke="#0b0f0c" stroke-width="18" stroke-linecap="round" stroke-dasharray="14 26"/><circle id="d1" r="34" fill="#0b0f0c"/><circle id="d2" r="34" fill="#fff" stroke="#0b0f0c" stroke-width="10"/></svg>',{top:'930px'});
+const t5b=A(s5,'خطوة بخطوة',{top:'1330px',fontSize:'110px',color:'var(--ink)'});
+// S6 offer
+const s6=mk(stage,'abs');
+const bfTag=mk(s6,'pill','BLACK FRIDAY',{left:0,top:'330px',background:'#fff',color:'var(--ink)',fontSize:'84px',padding:'4px 34px',fontFamily:'Cairo',fontStyle:'normal'});
+const khasm=A(s6,'خصم',{top:'480px',fontSize:'220px',color:'#fff'});
+const n30=A(s6,'٣٠٪',{top:'680px',fontSize:'520px',color:'var(--g)',lineHeight:'1'});
+const rings=[0,1,2].map(i=>mk(s6,'abs','',{left:'290px',top:'690px',width:'500px',height:'500px',border:'12px solid var(--g)',borderRadius:'50%'}));
+// S7 CTA
+const s7=mk(stage,'abs');
+const topb=mk(s7,'abs','',{left:0,top:0,width:'1080px',height:'640px',background:'var(--ink)',clipPath:'polygon(0 0,100% 0,100% 84%,0 100%)'});
+const lg7=logoImg(s7,'../assets/logo-white.png',220);
+const c7a=A(s7,'متستناش السبت الجاي',{top:'370px',fontSize:'104px',color:'var(--g)'});
+const btn=mk(s7,'btn','ابعتلنا رسالة دلوقتي',{top:'760px'});
+const c7b=A(s7,'ابدأ رحلتك…',{top:'1000px',fontSize:'110px',color:'var(--ink)'});
+const c7c=A(s7,'وغيّر حياتك مع X7',{top:'1140px',fontSize:'110px',color:'var(--gd)'});
+const off7=mk(s7,'pill','BLACK FRIDAY · خصم ٣٠٪',{left:0,top:'1330px',background:'var(--g)',color:'var(--ink)',fontSize:'60px',padding:'6px 36px',fontFamily:'Cairo',fontStyle:'normal',borderRadius:'50px',direction:'rtl'});
+// captions + overlays
+const sub=mk(w,'sub','');
+const flood=mk(w,'abs','',{left:0,top:0,width:W+'px',height:H+'px',background:'var(--g)'});
+const sw=mk(w,'abs','',{left:'-300px',top:'-300px',width:'760px',height:'2600px',background:'var(--g)'});
+const flash=mk(w,'abs','',{width:W+'px',height:H+'px',background:'#fff',opacity:0});
+const ar=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+window.render=function(t){
+ const sc=[[0,4.7],[4.7,8.3],[8.3,11.3],[11.3,14.3],[14.3,17.9],[17.9,20.5],[20.5,99]];
+ [s1,s2,s3,s4,s5,s6,s7].forEach((s,i)=>vis(s,t>=sc[i][0]&&t<sc[i][1]));
+ let bgc='#161917';if(t>=11.3)bgc='#050605';if(t>=14.3)bgc='#a6e62a';if(t>=17.9)bgc='#0b0f0c';if(t>=20.5)bgc='#ffffff';bg.style.background=bgc;
+ // S1: day counter, word written then struck, repeat
+ const k=t<2?1:t<3?2:t<3.9?3:4;calDay.textContent='السبت '+ar(Math.min(k,3)+(k>3?1:0));
+ const seg=t<2?[0.3,2]:t<3?[2,3]:t<3.9?[3,3.9]:[3.9,4.7];
+ const cp=P(t,seg[0],.2,E.back);tf(cal,{s:.92+.08*cp,r:(k%2?-2:2)*(1-cp)});
+ strike.style.width=480*P(t,seg[0]+.35,.3,E.expo)+'px';
+ tf(s1big,{o:P(t,.4,.3),y:(1-P(t,.4,.3,E.back))*40});
+ // S2 stairs climb slowing + breath; then shirt
+ const cl=Math.min(1,Math.pow(P(t,4.8,1.9,E.lin),.6));const pts=[[40,660],[200,540],[360,420],[520,300]];
+ const seg2=cl*3,i2=Math.min(2,Math.floor(seg2)),f2=seg2-i2;const [ax,ay]=pts[i2],[bx,by]=pts[i2+1];
+ climber.style.left=(90+ax+(bx-ax)*f2-35)+'px';climber.style.top=(330+ay+(by-ay)*f2-80-Math.abs(Math.sin(f2*Math.PI))*30)+'px';
+ const onSt=t<6.6;vis(stairs,onSt);vis(climber,onSt);vis(shirt,!onSt);
+ breath.forEach((b,i)=>{const bp=((t*1.6+i/3)%1);b.style.left=(parseFloat(climber.style.left)-40-bp*60)+'px';b.style.top=(parseFloat(climber.style.top)-40-bp*120)+'px';b.style.opacity=onSt&&t>5.4?(1-bp):0});
+ const sq=1-.18*P(t,6.7,.5,E.back)+.03*Math.sin(t*14)*P(t,6.7,.3);tf(shirt,{s:P(t,6.6,.25,E.back)});shirt.style.transform+=` scaleX(${sq})`;
+ s2big.textContent=t<6.6?'بتنهج':'بقت ضيقة';tf(s2big,{s:1+.25*(1-P(t,t<6.6?4.85:6.6,.2,E.expo))});
+ // S3 membership
+ tf(mcard,{y:(1-P(t,8.35,.35,E.back))*900});bar.style.width=(680*.06*P(t,8.9,.6,E.out))+'px';
+ const st=P(t,10.3,.15,E.expo);tf(stamp,{s:t<10.3?0:2.2-1.2*st,r:-12,o:t>=10.3?1:0});
+ // S4 pivot
+ vis(p1,t<12.9);vis(p2,t>=12.9);vis(p3,t>=13.2);
+ tf(p1,{o:P(t,11.45,.25),y:(1-P(t,11.45,.3,E.out))*40});tf(p2,{o:P(t,12.9,.2)});tf(p3,{s:t<13.2?0:1+.3*(1-P(t,13.2,.25,E.expo))});
+ tf(dot,{s:.6+.4*Math.abs(Math.sin(t*3)),o:t>=11.6?1:0});
+ // S5 together
+ lg5.style.left='360px';lg5.style.top='280px';tf(lg5,{s:P(t,14.45,.4,E.back)});
+ tf(t5a,{s:P(t,14.7,.3,E.back)});tf(t5b,{o:t>=16.2?1:0,y:(1-P(t,16.2,.3,E.back))*50});
+ const pp=document.getElementById('pp');if(pp){const L=pp.getTotalLength(),q=P(t,15.0,2.6,E.inOut);
+  const a=pp.getPointAtLength(L*q),b=pp.getPointAtLength(Math.max(0,L*q-70));
+  document.getElementById('d1').setAttribute('cx',a.x);document.getElementById('d1').setAttribute('cy',a.y-8*Math.abs(Math.sin(t*9)));
+  document.getElementById('d2').setAttribute('cx',b.x);document.getElementById('d2').setAttribute('cy',b.y-8*Math.abs(Math.sin(t*9+1.5)))}
+ // S6 offer
+ centerX(bfTag);tf(bfTag,{s:P(t,17.95,.3,E.back),r:-3});tf(khasm,{o:t>=18.1?1:0,y:(1-P(t,18.1,.25,E.out))*-60});
+ const o3=P(t,18.6,.18,E.expo);tf(n30,{s:t<18.6?0:2.3-1.3*o3});
+ rings.forEach((r,i)=>{const p=P(t,18.6+i*.12,.8);tf(r,{s:.4+3*p,o:t>=18.6+i*.12?1-p:0})});
+ // S7 CTA
+ lg7.style.left='440px';lg7.style.top='96px';tf(lg7,{s:P(t,20.55,.35,E.back)});
+ tf(topb,{y:-(1-P(t,20.5,.3))*700});tf(c7a,{o:t>=20.75?1:0,s:1+.2*(1-P(t,20.75,.2,E.expo))});
+ tf(btn,{s:P(t,22.0,.3,E.back)*(1+.035*Math.sin((t-22)*10)),o:t>=22?1:0});
+ tf(c7b,{o:t>=23.6?1:0,y:(1-P(t,23.6,.25))*60});tf(c7c,{o:t>=24.6?1:0,y:(1-P(t,24.6,.25))*60});
+ centerX(off7);tf(off7,{s:P(t,25.6,.3,E.back)});
+ // captions
+ const ln=(t>=11.3&&t<14.3)||t>=17.9?null:LINES.find(l=>t>=l[0]&&t<l[1]);sub.innerHTML=ln?'<span>'+ln[2]+'</span>':'';sub.style.opacity=ln?Math.min(1,(t-ln[0])/.15,(ln[1]-t)/.15):0;
+ sub.style.bottom=(t>=20.5?'140px':'300px');
+ // overlays: lime flood at the pivot, swooshes at cuts, flashes on hits
+ const fp=t>=14.0&&t<14.6;vis(flood,fp);if(fp)flood.style.clipPath=`circle(${P(t,14.0,.35,E.in)*1500}px at 540px 1210px)`;
+ let sx=-2400;for(const c of [4.7,8.3,17.9,20.5])if(t>=c-.14&&t<c+.14)sx=-1700+3400*E.inOut((t-c+.14)/.28);
+ sw.style.transform=`translateX(${sx}px) rotate(18deg)`;vis(sw,sx>-2300);
+ let fo=0;for(const c of [10.3,14.3,18.6,26.8])fo=Math.max(fo,.7*pulse(t,c,.07));flash.style.opacity=fo;
+ const a1=shake(t,10.3,.3,18),a2=shake(t,14.3,.4,26),a3=shake(t,18.6,.4,26);stage.style.transform=`translate(${a1[0]+a2[0]+a3[0]}px,${a1[1]+a2[1]+a3[1]}px)`;
+ w.style.opacity=t>27.6?1-P(t,27.6,.4,E.lin):1;
+};
+ready().then(()=>{[s1big,s2big,p1,p2,p3,t5a,t5b,khasm,c7a,c7b,c7c].forEach(e=>fit(e,960));s2big.textContent='بقت ضيقة';fit(s2big,960);contract([[0,'PAIN 01'],[4.7,'PAIN 02'],[8.3,'PAIN 03'],[11.3,'TURN'],[14.3,'X7'],[17.9,'OFFER'],[20.5,'CALL TO ACTION']]);window.render(0)});
+</script></body></html>
