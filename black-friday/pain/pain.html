@@ -20,13 +20,7 @@
 window.DURATION=28;
 window.EVENTS=[[2.0,'tick'],[3.0,'tick'],[3.9,'tick'],[4.6,'whoosh'],[8.2,'whoosh'],[10.3,'hit'],[11.35,'impact'],[13.3,'riser',1.0],[14.3,'bigboom'],
  [17.8,'whoosh'],[17.9,'riser',.7],[18.6,'bigboom'],[20.4,'whoosh'],[22.0,'hit'],[26.8,'bigboom']];
-const LINES=[[0.3,4.6,'كل سبت تقول: خلاص، من النهارده هبدأ…<br>ويعدّي السبت، واللي بعده، واللي بعده.'],
- [4.8,8.2,'تطلع السلم تنهج…<br>والهدوم اللي بتحبها بقت ضيقة عليك.'],
- [8.4,11.2,'واشتركت في جيم قبل كده…<br>روحت أسبوع، وبطّلت.'],
- [11.4,14.4,'المشكلة مش فيك.<br>المشكلة إنك كنت لوحدك.'],
- [14.6,17.8,'في X7، مش هتبقى لوحدك…<br>هنمشي معاك خطوة بخطوة.'],
- [18.0,20.4,'وفي البلاك فرايداي…<br>خصم ٣٠٪'],
- [20.6,26.9,'متستناش السبت الجاي.<br>ابعتلنا رسالة دلوقتي… ابدأ رحلتك، وغيّر حياتك مع X7.']];
+const LINES=[[0.12,4.62,'كل سبت تقول: هبدأ،<br>ومبتبدأش.'],[4.82,8.22,'تطلع السلم تنهج،<br>وهدومك بقت ضيقة.'],[8.42,11.22,'اشتركت في جيم،<br>وبطّلت بعد أسبوع.'],[11.42,14.22,'المشكلة مش فيك،<br>المشكلة إنك كنت لوحدك.'],[14.42,17.82,'مع X7،<br>مش هتبقى لوحدك.'],[18.02,20.42,'البلاك فرايداي،<br>خصم تلاتين في المية!'],[20.62,27.92,'متستناش السبت الجاي،<br>ابعتلنا دلوقتي، وغيّر حياتك مع X7.']];
 const w=document.getElementById('world');
 const bg=mk(w,'abs','',{width:W+'px',height:H+'px',background:'#161917'});
 const stage=mk(w,'abs','',{width:W+'px',height:H+'px'});
@@ -66,7 +60,7 @@ const s5=mk(stage,'abs');
 const lg5=logoImg(s5,'../assets/logo-color.png',360);
 const t5a=A(s5,'مش هتبقى لوحدك',{top:'700px',fontSize:'130px',color:'var(--ink)'});
 const path5=mk(s5,'abs','<svg width="1080" height="420" viewBox="0 0 1080 420"><path id="pp" d="M80 360 C 300 360, 300 200, 540 200 S 800 60, 1000 60" fill="none" stroke="#0b0f0c" stroke-width="18" stroke-linecap="round" stroke-dasharray="14 26"/><circle id="d1" r="34" fill="#0b0f0c"/><circle id="d2" r="34" fill="#fff" stroke="#0b0f0c" stroke-width="10"/></svg>',{top:'930px'});
-const t5b=A(s5,'خطوة بخطوة',{top:'1330px',fontSize:'110px',color:'var(--ink)'});
+const t5b=A(s5,'يلا نبدأ سوا',{top:'1330px',fontSize:'110px',color:'var(--ink)'});
 // S6 offer
 const s6=mk(stage,'abs');
 const bfTag=mk(s6,'pill','BLACK FRIDAY',{left:0,top:'330px',background:'#fff',color:'var(--ink)',fontSize:'84px',padding:'4px 34px',fontFamily:'Cairo',fontStyle:'normal'});
@@ -141,5 +135,10 @@ window.render=function(t){
  const a1=shake(t,10.3,.3,18),a2=shake(t,14.3,.4,26),a3=shake(t,18.6,.4,26);stage.style.transform=`translate(${a1[0]+a2[0]+a3[0]}px,${a1[1]+a2[1]+a3[1]}px)`;
  w.style.opacity=t>27.6?1-P(t,27.6,.4,E.lin):1;
 };
+const SC_ORIG=[[0, 4.7], [4.7, 8.3], [8.3, 11.3], [11.3, 14.3], [14.3, 17.9], [17.9, 20.5], [20.5, 28.0]],SC_NEW=[[0, 3.922], [3.922, 7.527], [7.527, 10.678], [10.678, 14.747], [14.747, 17.652], [17.652, 20.979], [20.979, 27.714]];
+const toOrig=tn=>{for(let i=0;i<SC_NEW.length;i++){const[a,b]=SC_NEW[i],[c,d]=SC_ORIG[i];if(tn<b||i==SC_NEW.length-1)return c+(Math.min(tn,b)-a)/(b-a)*(d-c)}};
+const toNew=to=>{for(let i=0;i<SC_ORIG.length;i++){const[c,d]=SC_ORIG[i],[a,b]=SC_NEW[i];if(to<d||i==SC_ORIG.length-1)return +(a+(to-c)/(d-c)*(b-a)).toFixed(3)}};
+window.DURATION=27.714;window.EVENTS=window.EVENTS.map(e=>[toNew(e[0]),e[1],...(e.length>2?[+(toNew(e[0]+e[2])-toNew(e[0])).toFixed(3)]:[])]);
+{const inner=window.render;window.render=tn=>inner(toOrig(tn));}
 ready().then(()=>{[s1big,s2big,p1,p2,p3,t5a,t5b,khasm,c7a,c7b,c7c].forEach(e=>fit(e,960));s2big.textContent='بقت ضيقة';fit(s2big,960);contract([[0,'PAIN 01'],[4.7,'PAIN 02'],[8.3,'PAIN 03'],[11.3,'TURN'],[14.3,'X7'],[17.9,'OFFER'],[20.5,'CALL TO ACTION']]);window.render(0)});
 </script></body></html>
