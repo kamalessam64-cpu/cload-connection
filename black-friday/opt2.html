@@ -1,0 +1,100 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="engine.css">
+<style>
+.dots{position:absolute;inset:0;background:radial-gradient(circle,rgba(11,15,12,.16) 6px,transparent 7px) 0 0/44px 44px}
+.band{position:absolute;left:-400px;width:1880px;height:210px;display:flex;align-items:center;font-weight:900;font-style:italic;font-size:150px;letter-spacing:-4px;white-space:nowrap;overflow:hidden}
+.btn{position:absolute;left:100px;width:880px;height:190px;border-radius:30px;background:var(--g);color:var(--ink);font-weight:900;font-style:italic;font-size:110px;letter-spacing:-3px;display:flex;align-items:center;justify-content:center}
+</style></head><body><div id="world"></div>
+<script src="engine.js"></script>
+<script>
+const BT=60/140;const B=n=>+(n*BT).toFixed(3);
+window.DURATION=15.5;
+window.EVENTS=[[B(0),'kick808'],[B(1),'kick808'],[B(2),'kick808'],[B(3),'kick808'],[B(3.5),'riser',BT*.5],
+ [B(4),'drop'],[B(7),'drop'],[B(8),'hit'],[B(9),'hit'],[B(10),'hit'],[B(11),'whoosh'],
+ [B(15),'hit'],[B(16),'hit'],[B(17),'hit'],[B(18),'hit'],[B(19),'bigboom'],[B(18.5),'riser',BT*.5],
+ [B(20),'drop'],[B(24),'riser',BT*2],[B(26),'drop'],[B(35),'bigboom']];
+const w=document.getElementById('world');
+const bg=mk(w,'abs','',{width:W+'px',height:H+'px',background:'#0b0f0c'});
+const stage=mk(w,'abs','',{width:W+'px',height:H+'px'});
+// word scene
+const wScene=mk(stage,'abs');
+const word=mk(wScene,'c','',{top:'760px',fontSize:'330px'});
+// logo scene
+const lScene=mk(stage,'abs');
+const lring=mk(lScene,'abs','',{left:'140px',top:'580px',width:'800px',height:'800px',borderRadius:'50%',background:'var(--ink)',border:'16px solid var(--g)'});
+const lgo=logoImg(lScene,'assets/logo-white.png',560);
+const lt=mk(lScene,'pill','BLACK FRIDAY',{left:0,top:'1420px',background:'var(--ink)',color:'var(--g)',fontSize:'90px',padding:'6px 36px'});
+// 30 scene
+const tScene=mk(stage,'abs');const dots=mk(tScene,'dots');
+const t30=mk(tScene,'c','30%',{top:'330px',fontSize:'700px',color:'var(--ink)',letterSpacing:'-24px'});
+const tOff=mk(tScene,'pill','OFF',{left:0,top:'1050px',background:'var(--ink)',color:'#fff',fontSize:'420px',padding:'0 70px',lineHeight:'1.05'});
+const tSm=mk(tScene,'pill','BLACK FRIDAY',{left:0,top:'200px',background:'#fff',color:'var(--ink)',fontSize:'80px',padding:'4px 30px'});
+const stars=[0,1,2,3,4,5].map(i=>mk(tScene,'abs','',{width:'40px',height:'40px',background:'var(--ink)',left:'540px',top:'900px'}));
+// marquee
+const mScene=mk(stage,'abs');
+const bandDefs=[['#a6e62a','#0b0f0c',380,-1],['#ffffff','#0b0f0c',620,1],['#a6e62a','#0b0f0c',860,-1],['#ffffff','#0b0f0c',1100,1],['#a6e62a','#0b0f0c',1340,-1]];
+const txt='BLACK FRIDAY ✦ 30% OFF ✦ BLACK FRIDAY ✦ 30% OFF ✦ BLACK FRIDAY ✦ 30% OFF ✦ BLACK FRIDAY ✦ 30% OFF ✦ ';
+const bands=bandDefs.map(([bgc,fg,top,dir])=>{const d=mk(mScene,'band','<span>'+txt+'</span>',{background:bgc,color:fg,top:top+'px',transform:'rotate(-14deg)'});return d});
+const mlogoWrap=mk(mScene,'abs','',{left:'250px',top:'760px',width:'580px',height:'580px',background:'#0b0f0c',borderRadius:'50%',border:'14px solid var(--g)'});
+const mlogo=logoImg(mScene,'assets/logo-white.png',420);
+// CTA
+const cScene=mk(stage,'abs');
+const cTop=mk(cScene,'abs','',{left:'-100px',top:'-60px',width:'1300px',height:'640px',background:'var(--g)',transform:'skewY(-4deg)'});
+const cBF=mk(cScene,'pill','BLACK FRIDAY',{left:0,top:'90px',color:'var(--ink)',fontSize:'86px'});
+const c30=mk(cScene,'pill','30% OFF',{left:0,top:'210px',color:'var(--ink)',fontSize:'250px',letterSpacing:'-8px'});
+const cLogo=logoImg(cScene,'assets/logo-color.png',440);
+const cT1=mk(cScene,'c','START YOUR FITNESS',{top:'1090px',fontSize:'96px',color:'var(--ink)',letterSpacing:'-3px'});
+const cT2=mk(cScene,'c','JOURNEY NOW',{top:'1200px',fontSize:'150px',color:'var(--gd)',letterSpacing:'-4px'});
+const cBot=mk(cScene,'abs','',{left:0,top:'1430px',width:W+'px',height:'500px',background:'var(--ink)'});
+const cBtn=mk(cScene,'btn','DM US NOW',{top:'1480px'});
+const cT3=mk(cScene,'c','CHANGE YOUR LIFE WITH X7',{top:'1730px',fontSize:'70px',color:'#fff',letterSpacing:'-2px'});
+const swoosh=mk(w,'abs','',{left:'-300px',top:'-300px',width:'700px',height:'2600px',background:'var(--g)',transform:'translateX(-2000px) rotate(18deg)'});
+const flash=mk(w,'abs','',{width:W+'px',height:H+'px',background:'#fff',opacity:0});
+// word sequence: [t0,t1,text,bg,fg,font]
+const words=[[B(0),B(1),'BLACK','#0b0f0c','#a6e62a',360],[B(1),B(2),'FRIDAY','#a6e62a','#0b0f0c',330],[B(2),B(3),'IS','#ffffff','#0b0f0c',560],[B(3),B(4),'HERE','#0b0f0c','#ffffff',420],
+ [B(15),B(16),'START','#a6e62a','#0b0f0c',380],[B(16),B(17),'YOUR','#0b0f0c','#a6e62a',480],[B(17),B(18),'FITNESS','#ffffff','#0b0f0c',300],[B(18),B(19),'JOURNEY','#0b0f0c','#ffffff',290],[B(19),B(20),'NOW!','#a6e62a','#0b0f0c',520],
+ [B(20),B(22),'CHANGE','#0b0f0c','#ffffff',360],[B(22),B(24),'YOUR LIFE','#a6e62a','#0b0f0c',290]];
+const cuts=[B(1),B(2),B(3),B(4),B(7),B(11),B(15),B(16),B(17),B(18),B(19),B(20),B(22),B(24),B(26)];
+const marq=bands.map(b=>b.firstChild);
+window.render=function(t){
+ const act=words.find(x=>t>=x[0]&&t<x[1]);
+ const inLogo=t>=B(4)&&t<B(7),inT=t>=B(7)&&t<B(11),inM=t>=B(11)&&t<B(15),inEl=t>=B(24)&&t<B(26),inC=t>=B(26);
+ vis(wScene,!!act);vis(lScene,inLogo);vis(tScene,inT);vis(mScene,inM);vis(cScene,inC);
+ let bgc='#0b0f0c';
+ if(act){bgc=act[3];word.textContent=act[2];word.style.color=act[4];word.style.fontSize='900px';fit(word,980);
+   const p=P(t,act[0],.14,E.expo);tf(word,{s:1.7-.7*p,r:((act[0]*10|0)%2?4:-4)*(1-.3*p),y:(1-p)*-30});
+   word.style.top=(960-parseFloat(word.style.fontSize)*.46)+'px'}
+ if(inEl){}
+ if(t>=B(22)&&t<B(26)){ // "WITH" + logo end of change scene
+   // handled below
+ }
+ if(inLogo){bgc='#ffffff';const p=P(t,B(4),.5,E.back);tf(lring,{s:p*1.0,o:1});lgo.style.left='260px';lgo.style.top='640px';tf(lgo,{s:p});
+   lgo.style.transformOrigin='50% 50%';lring.style.transformOrigin='50% 50%';
+   tf(lt,{s:P(t,B(5),.3,E.back),r:-4});centerX(lt)}
+ if(inT){bgc='#a6e62a';const q=P(t,B(7),.2,E.expo);tf(t30,{s:2-q,o:1,r:-4});
+   const q2=P(t,B(8),.18,E.expo);tf(tOff,{s:t<B(8)?0:1.8-.8*q2,r:3});centerX(tOff);centerX(tSm);tf(tSm,{s:P(t,B(7),.3,E.back),r:-3});
+   stars.forEach((s,i)=>{const p=P(t,B(8),.7,E.out);const a=i/6*Math.PI*2+.3;tf(s,{x:Math.cos(a)*(120+520*p),y:Math.sin(a)*(120+520*p),r:p*360,s:(1-p)*1.4,o:t>=B(8)?1:0})})}
+ if(inM){bgc='#0b0f0c';marq.forEach((m,i)=>{const dir=bandDefs[i][3];m.style.display='inline-block';m.style.transform=`translateX(${dir*((t-B(11))*700%1700)-(dir>0?1700:0)}px)`});
+   const lp=P(t,B(12),.4,E.back);tf(mlogoWrap,{s:lp});mlogo.style.left='330px';mlogo.style.top='840px';tf(mlogo,{s:lp});
+   bands.forEach((b,i)=>{b.style.transform=`rotate(-14deg) translateX(${(1-P(t,B(11)+i*.04,.25))*(i%2?1500:-1500)}px)`})}
+ if(inC){bgc='#ffffff';
+   tf(cTop,{y:-(1-P(t,B(26),.3))*700});
+   centerX(cBF);centerX(c30);tf(cBF,{s:P(t,B(26),.25,E.back)});tf(c30,{s:P(t,B(26)+.15,.3,E.back),r:-3});
+   cLogo.style.left='320px';cLogo.style.top='620px';tf(cLogo,{s:P(t,B(27),.35,E.back)});
+   tf(cT1,{o:t>=B(28)?1:0,y:(1-P(t,B(28),.25))*70});tf(cT2,{o:t>=B(29)?1:0,y:(1-P(t,B(29),.25))*70});
+   tf(cBot,{y:(1-P(t,B(30),.3))*600});
+   tf(cBtn,{s:P(t,B(31),.3,E.back)*(1+.04*Math.sin((t-B(31))*12)),o:t>=B(31)?1:0});
+   tf(cT3,{o:t>=B(33)?1:0,y:(1-P(t,B(33),.25))*60})}
+ // "WITH X7" ending of change scene uses wScene + extra: show logo big
+ if(t>=B(24)&&t<B(26)){vis(wScene,false);vis(lScene,true);bgc='#0b0f0c';
+   const p=P(t,B(24),.3,E.back);tf(lring,{s:p});lgo.style.left='260px';lgo.style.top='640px';tf(lgo,{s:p});
+   lt.textContent='WITH X7';tf(lt,{s:P(t,B(24)+.1,.3,E.back),r:-4});centerX(lt)} else if(t<B(24)) lt.textContent='BLACK FRIDAY';
+ bg.style.background=bgc;
+ // swoosh on each cut
+ let sw=-2400;for(const c of cuts){if(t>=c&&t<c+.3){sw=-1700+3400*E.inOut((t-c)/.3)}}
+ swoosh.style.transform=`translateX(${sw}px) rotate(18deg)`;swoosh.style.display=sw>-2300?'':'none';
+ let fo=0;for(const c of [B(0),B(4),B(7),B(8),B(20),B(26)])fo=Math.max(fo,.6*pulse(t,c,.06));flash.style.opacity=fo;
+ const sh=shake(t,B(7),.3,22),sh2=shake(t,B(8),.3,26),sh3=shake(t,B(26),.3,18);stage.style.transform=`translate(${sh[0]+sh2[0]+sh3[0]}px,${sh[1]+sh2[1]+sh3[1]}px)`;
+ w.style.opacity=t>15.2?1-P(t,15.2,.3,E.lin):1;
+};
+ready().then(()=>{fit(cT1,960);fit(cT2,960);fit(cT3,960);fit(c30,940);t30.textContent='30%';fit(t30,980);window.render(0)});
+</script></body></html>

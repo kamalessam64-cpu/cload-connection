@@ -1,0 +1,7 @@
+:root{--g:#a6e62a;--gd:#5a9e12;--ink:#0b0f0c}
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0b0f0c;font-family:'Inter','Inter Display',Arial,sans-serif}
+#world{position:absolute;inset:0;overflow:hidden}
+.abs{position:absolute;left:0;top:0}
+.c{position:absolute;left:0;width:1080px;text-align:center;font-weight:900;font-style:italic;line-height:.92;letter-spacing:-6px;white-space:nowrap}
+.pill{position:absolute;font-weight:900;font-style:italic;white-space:nowrap}
