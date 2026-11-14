@@ -136,10 +136,10 @@ window.render=function(t){
  const a1=shake(t,10.3,.3,18),a2=shake(t,14.3,.4,26),a3=shake(t,18.6,.4,26);stage.style.transform=`translate(${a1[0]+a2[0]+a3[0]}px,${a1[1]+a2[1]+a3[1]}px)`;
  w.style.opacity=t>27.6?1-P(t,27.6,.4,E.lin):1;
 };
-const SC_ORIG=[[0, 4.7], [4.7, 8.3], [8.3, 11.3], [11.3, 14.3], [14.3, 17.9], [17.9, 20.5], [20.5, 28.0]],SC_NEW=[[0, 3.922], [3.922, 7.527], [7.527, 10.678], [10.678, 14.747], [14.747, 17.652], [17.652, 20.979], [20.979, 27.714]];
+const SC_ORIG=[[0, 4.7], [4.7, 8.3], [8.3, 11.3], [11.3, 14.3], [14.3, 17.9], [17.9, 20.5], [20.5, 28.0]],SC_NEW=[[0, 2.6], [2.6, 5.31], [5.31, 7.887], [7.887, 11.024], [11.024, 13.164], [13.164, 16.07], [16.07, 22.479]];
 const toOrig=tn=>{for(let i=0;i<SC_NEW.length;i++){const[a,b]=SC_NEW[i],[c,d]=SC_ORIG[i];if(tn<b||i==SC_NEW.length-1)return c+(Math.min(tn,b)-a)/(b-a)*(d-c)}};
 const toNew=to=>{for(let i=0;i<SC_ORIG.length;i++){const[c,d]=SC_ORIG[i],[a,b]=SC_NEW[i];if(to<d||i==SC_ORIG.length-1)return +(a+(to-c)/(d-c)*(b-a)).toFixed(3)}};
-window.DURATION=27.714;window.EVENTS=window.EVENTS.map(e=>[toNew(e[0]),e[1],...(e.length>2?[+(toNew(e[0]+e[2])-toNew(e[0])).toFixed(3)]:[])]);
+window.DURATION=22.479;window.EVENTS=window.EVENTS.map(e=>[toNew(e[0]),e[1],...(e.length>2?[+(toNew(e[0]+e[2])-toNew(e[0])).toFixed(3)]:[])]);
 {const inner=window.render;window.render=tn=>inner(toOrig(tn));}
-ready().then(()=>{[s1big,s2big,p1,p2,p3,t5a,t5b,khasm,c7a,c7b,c7c].forEach(e=>fit(e,960));s2big.textContent='بقت ضيقة';fit(s2big,960);contract([[0,'PAIN 01'],[4.7,'PAIN 02'],[8.3,'PAIN 03'],[11.3,'TURN'],[14.3,'X7'],[17.9,'OFFER'],[20.5,'CALL TO ACTION']]);window.render(0)});
+ready().then(()=>{[s1big,s2big,p1,p2,p3,t5a,t5b,khasm,c7a,c7b,c7c].forEach(e=>fit(e,960));s2big.textContent='بقت ضيقة';fit(s2big,960);contract(['PAIN 01','PAIN 02','PAIN 03','TURN','X7','OFFER','CALL TO ACTION'].map((l,i)=>[SC_NEW[i][0],l]));window.render(0)});
 </script></body></html>
