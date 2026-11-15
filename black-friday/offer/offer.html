@@ -1,0 +1,55 @@
+<!doctype html><html lang="ar"><head><meta charset="utf-8"><link rel="stylesheet" href="fonts.css">
+<style>
+:root{--g:#a6e62a;--gd:#5a9e12;--ink:#0b0f0c}
+*{margin:0;box-sizing:border-box}
+body{position:relative;overflow:hidden;background:var(--ink);font-family:'Cairo',sans-serif;color:#fff}
+.abs{position:absolute}
+.ar{position:absolute;direction:rtl;text-align:center;left:0;right:0;font-weight:900;white-space:nowrap;line-height:1.1}
+.stripes{position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(166,230,42,.07) 0 3px,transparent 3px 90px)}
+.grain{position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.photo{position:absolute;overflow:hidden;background:#222}
+.photo img{position:absolute;width:100%;height:100%;object-fit:cover}
+.tag{position:absolute;background:var(--g);color:var(--ink);font-weight:900;font-family:'Cairo';padding:6px 30px;transform:skewX(-8deg);white-space:nowrap}
+.bf{position:absolute;background:#fff;color:var(--ink);font-weight:900;padding:4px 28px;transform:skewX(-8deg) rotate(-3deg);white-space:nowrap;font-family:'Cairo'}
+.btn{position:absolute;border-radius:100px;background:var(--g);color:var(--ink);font-weight:900;display:flex;align-items:center;justify-content:center;direction:rtl}
+.badge{position:absolute;border-radius:50%;background:var(--ink);border:10px solid var(--g);display:flex;align-items:center;justify-content:center}
+.badge img{width:72%}
+.cap{position:absolute;font-family:'DejaVu Sans Mono',monospace;font-size:20px;letter-spacing:4px;color:rgba(255,255,255,.75)}
+</style></head><body><div id="root"></div>
+<script>
+const p=new URLSearchParams(location.search),fmt=p.get('fmt')||'post';
+const W=1080,H=fmt==='story'?1920:1350;document.body.style.width=W+'px';document.body.style.height=H+'px';
+const R=document.getElementById('root');
+const el=(cls,html,css)=>{const e=document.createElement('div');e.className=cls;if(html)e.innerHTML=html;Object.assign(e.style,css||{});R.appendChild(e);return e};
+el('stripes');
+if(fmt==='post'){
+ // hero: the box (rig + X7 banner), slanted frame with lime offset
+ el('abs','',{left:'60px',top:'190px',width:'960px',height:'560px',background:'var(--g)',transform:'translate(18px,18px)',clipPath:'polygon(5% 0,100% 0,95% 100%,0 100%)'});
+ el('photo','<img src="src/box_rig.jpg">',{left:'60px',top:'190px',width:'960px',height:'560px',clipPath:'polygon(5% 0,100% 0,95% 100%,0 100%)'});
+ el('cap','THE X7 BOX',{left:'110px',top:'205px',color:'#fff',textShadow:'0 1px 4px #000'});
+ // athlete inset
+ el('abs','',{left:'60px',top:'610px',width:'250px',height:'330px',background:'var(--ink)',border:'8px solid #fff',transform:'rotate(-4deg)',overflow:'hidden'}).innerHTML='<img src="src/athlete_press.jpg" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%">';
+ const b=el('badge','<img src="../assets/logo-white.png">',{left:'60px',top:'40px',width:'130px',height:'130px',borderWidth:'6px'});
+ el('bf','BLACK FRIDAY',{right:'60px',top:'70px',fontSize:'54px'});
+ el('ar','مكانك جاهز… ومستنيك',{top:'800px',fontSize:'60px',color:'#fff',paddingLeft:'300px'});
+ el('ar','خصم <span style="color:var(--g)">٣٠٪</span>',{top:'880px',fontSize:'190px',paddingLeft:'300px'});
+ el('btn','ابعتلنا دلوقتي 📩',{left:'340px',right:'60px',top:'1140px',height:'130px',fontSize:'64px'});
+ el('cap','X7PLUS · ATHLETES PERFORMANCE',{left:'60px',bottom:'30px'});
+}else{
+ // story: offer type on top, the box as the hero photo, athlete as a small tilted print
+ el('badge','<img src="../assets/logo-white.png">',{left:'60px',top:'250px',width:'150px',height:'150px',borderWidth:'7px'});
+ el('bf','BLACK FRIDAY',{right:'60px',top:'290px',fontSize:'60px'});
+ el('ar','خصم <span style="color:var(--g)">٣٠٪</span>',{top:'440px',fontSize:'230px'});
+ el('abs','',{left:'80px',top:'800px',width:'920px',height:'520px',background:'var(--g)',transform:'translate(16px,16px)',clipPath:'polygon(5% 0,100% 0,95% 100%,0 100%)'});
+ el('photo','<img src="src/box_rig.jpg">',{left:'80px',top:'800px',width:'920px',height:'520px',clipPath:'polygon(5% 0,100% 0,95% 100%,0 100%)'});
+ el('cap','THE X7 BOX',{left:'130px',top:'815px',color:'#fff',textShadow:'0 1px 4px #000'});
+ el('abs','',{left:'60px',top:'1210px',width:'270px',height:'360px',background:'var(--ink)',border:'8px solid #fff',transform:'rotate(-4deg)',overflow:'hidden'}).innerHTML='<img src="src/athlete_press.jpg" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%">';
+ el('ar','مكانك جاهز…<br>ومستنيك',{top:'1380px',fontSize:'76px',paddingLeft:'330px',lineHeight:'1.25'});
+ el('btn','ابعتلنا دلوقتي 📩',{left:'140px',right:'140px',top:'1660px',height:'130px',fontSize:'64px'});
+}
+// seeded film grain
+const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d'),im=g.createImageData(256,256);let s=7;
+for(let i=0;i<im.data.length;i+=4){s=(s*16807)%2147483647;const v=s%256;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255}g.putImageData(im,0,0);
+el('grain','',{backgroundImage:`url(${c.toDataURL()})`});
+Promise.all([document.fonts.ready,...[...document.images].map(i=>i.complete?1:new Promise(r=>i.onload=i.onerror=r))]).then(()=>document.body.dataset.ready=1);
+</script></body></html>
