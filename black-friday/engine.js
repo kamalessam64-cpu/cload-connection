@@ -35,7 +35,7 @@ function addFinish(scenes){ // scenes: [[startTime,'LABEL'],...]
   const sc=mk(hud,'abs','',{right:'110px',left:'auto',top:'46px'});
   const lab=mk(hud,'abs','',{left:'110px',bottom:'46px',top:'auto'});
   const tc=mk(hud,'abs','',{right:'110px',left:'auto',bottom:'46px',top:'auto'});
-  const tag=mk(hud,'abs','X7PLUS / BLACK FRIDAY',{left:'110px',top:'46px'});
+  const tag=mk(hud,'abs',window.HUD_TAG||'X7PLUS / BLACK FRIDAY',{left:'110px',top:'46px'});
   return function(t){
     grain.style.backgroundImage=`url(${tiles[Math.floor(t*24)%tiles.length]})`;
     let i=0;for(let k=0;k<scenes.length;k++)if(t>=scenes[k][0])i=k;

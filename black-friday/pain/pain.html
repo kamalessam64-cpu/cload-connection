@@ -6,7 +6,7 @@
 .card{position:absolute;border-radius:36px}
 .btn{position:absolute;left:90px;width:900px;height:190px;border-radius:100px;background:var(--ink);color:var(--g);font-family:'Cairo';font-weight:900;font-size:84px;display:flex;align-items:center;justify-content:center;direction:rtl}
 </style></head><body><div id="world"></div>
-<script src="../engine.js"></script>
+<script>window.HUD_TAG='X7PLUS / GREEN FRIDAY'</script><script src="../engine.js"></script>
 <script>
 /* BEAT SHEET (t s | visual | sound)
  0.0  S1 grey calendar, "السبت ١/٢/٣", "هبدأ" crossed out      | dark drone, ticks 2.0 3.0 3.9
@@ -14,13 +14,13 @@
  8.3  S3 membership card, progress stops at week 1, "بطّلت" stamp | whoosh, punch 10.3
 11.3  S4 black, "المشكلة مش فيك." / "...كنت لوحدك" single dot      | low impact, riser 13.3 -> flood 14.3 big hit
 14.3  S5 lime: logo, two dots walking together, "خطوة بخطوة"     | beat drops
-17.9  S6 BLACK FRIDAY ٣٠٪ slam                                    | riser -> big hit 18.6
+17.9  S6 GREEN FRIDAY ٣٠٪ slam                                    | riser -> big hit 18.6
 20.5  S7 CTA: DM button, "ابدأ رحلتك... وغيّر حياتك مع X7"         | pop 22.0, end hit 26.8
  Voice-over lines are in script-ar.txt; captions below follow the same timing. */
 window.DURATION=28;
 window.EVENTS=[[2.0,'tick'],[3.0,'tick'],[3.9,'tick'],[4.6,'whoosh'],[8.2,'whoosh'],[10.3,'hit'],[11.35,'impact'],[13.3,'riser',1.0],[14.3,'bigboom'],
  [17.8,'whoosh'],[17.9,'riser',.7],[18.6,'bigboom'],[20.4,'whoosh'],[22.0,'hit'],[26.8,'bigboom']];
-const LINES=[[0.12,4.62,'كل سبت تقول: هبدأ،<br>ومبتبدأش.'],[4.82,8.22,'تطلع السلم تنهج،<br>وهدومك بقت ضيقة.'],[8.42,11.22,'اشتركت في جيم،<br>وبطّلت بعد أسبوع.'],[11.42,14.22,'المشكلة مش فيك،<br>المشكلة إنك كنت لوحدك.'],[14.42,17.82,'مع X7،<br>مش هتبقى لوحدك.'],[18.02,20.42,'البلاك فرايداي،<br>خصم تلاتين في المية!'],[20.62,27.92,'متستناش السبت الجاي،<br>ابعتلنا دلوقتي، وغيّر حياتك مع X7.']];
+const LINES=[[0.12,4.62,'كل سبت تقول: هبدأ،<br>ومبتبدأش.'],[4.82,8.22,'تطلع السلم تنهج،<br>وهدومك بقت ضيقة.'],[8.42,11.22,'اشتركت في جيم،<br>وبطّلت بعد أسبوع.'],[11.42,14.22,'المشكلة مش فيك،<br>المشكلة إنك كنت لوحدك.'],[14.42,17.82,'مع X7،<br>مش هتبقى لوحدك.'],[18.02,20.42,'الجرين فرايداي،<br>خصم تلاتين في المية!'],[20.62,27.92,'متستناش السبت الجاي،<br>ابعتلنا دلوقتي، وغيّر حياتك مع X7.']];
 const w=document.getElementById('world');
 const bg=mk(w,'abs','',{width:W+'px',height:H+'px',background:'#161917'});
 const stage=mk(w,'abs','',{width:W+'px',height:H+'px'});
@@ -64,7 +64,7 @@ const path5=mk(s5,'abs','<svg width="1080" height="420" viewBox="0 0 1080 420"><
 const t5b=A(s5,'يلا نبدأ سوا',{top:'1330px',fontSize:'110px',color:'var(--ink)'});
 // S6 offer
 const s6=mk(stage,'abs');
-const bfTag=mk(s6,'pill','BLACK FRIDAY',{left:0,top:'330px',background:'#fff',color:'var(--ink)',fontSize:'84px',padding:'4px 34px',fontFamily:'Cairo',fontStyle:'normal'});
+const bfTag=mk(s6,'pill','<span style="color:#5a9e12">GREEN</span> FRIDAY',{left:0,top:'330px',background:'#fff',color:'var(--ink)',fontSize:'84px',padding:'4px 34px',fontFamily:'Cairo',fontStyle:'normal'});
 const khasm=A(s6,'خصم',{top:'480px',fontSize:'220px',color:'#fff'});
 const n30=A(s6,'٣٠٪',{top:'680px',fontSize:'520px',color:'var(--g)',lineHeight:'1'});
 const rings=[0,1,2].map(i=>mk(s6,'abs','',{left:'290px',top:'690px',width:'500px',height:'500px',border:'12px solid var(--g)',borderRadius:'50%'}));
@@ -76,7 +76,7 @@ const c7a=A(s7,'متستناش السبت الجاي',{top:'370px',fontSize:'104
 const btn=mk(s7,'btn','ابعتلنا رسالة دلوقتي',{top:'760px'});
 const c7b=A(s7,'ابدأ رحلتك…',{top:'1000px',fontSize:'110px',color:'var(--ink)'});
 const c7c=A(s7,'وغيّر حياتك مع X7',{top:'1140px',fontSize:'110px',color:'var(--gd)'});
-const off7=mk(s7,'pill','BLACK FRIDAY · خصم ٣٠٪',{left:0,top:'1330px',background:'var(--g)',color:'var(--ink)',fontSize:'60px',padding:'6px 36px',fontFamily:'Cairo',fontStyle:'normal',borderRadius:'50px',direction:'rtl'});
+const off7=mk(s7,'pill','GREEN FRIDAY · خصم ٣٠٪',{left:0,top:'1330px',background:'var(--g)',color:'var(--ink)',fontSize:'60px',padding:'6px 36px',fontFamily:'Cairo',fontStyle:'normal',borderRadius:'50px',direction:'rtl'});
 // captions + overlays
 const sub=mk(w,'sub','');
 const flood=mk(w,'abs','',{left:0,top:0,width:W+'px',height:H+'px',background:'var(--g)'});
