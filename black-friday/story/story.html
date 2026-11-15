@@ -1,0 +1,70 @@
+<!doctype html><html lang="ar"><head><meta charset="utf-8"><link rel="stylesheet" href="../engine.css"><link rel="stylesheet" href="fonts.css">
+<style>
+.ar{position:absolute;left:0;width:1080px;text-align:center;direction:rtl;font-family:'Cairo',sans-serif;font-weight:900;line-height:1.15;white-space:nowrap}
+.btn{position:absolute;left:110px;width:860px;height:180px;border-radius:100px;background:var(--g);color:var(--ink);font-family:'Cairo';font-weight:900;font-size:80px;display:flex;align-items:center;justify-content:center;direction:rtl}
+</style></head><body><div id="world"></div>
+<script src="../engine.js"></script>
+<script>
+/* "آخر يوم" Story, 10 s, 9:16. Key content kept between y=300 and y=1600 (Instagram Story UI safe zone).
+ 0.0 S1 black: clock ticking, "آخر يوم" slams            | tick x4, big hit 0.9
+ 2.0 S2 lime: BLACK FRIDAY + "خصم ٣٠٪"                  | whoosh, riser -> big hit 2.6
+ 4.4 S3 black: "متستناش السبت الجاي"                     | whoosh, punch 4.6
+ 6.4 S4 white/ink CTA: logo badge, DM button, "قبل ما العرض يخلص" | whoosh, hit 7.0, end hit 9.4 */
+window.DURATION=10;
+window.EVENTS=[[0.1,'tick'],[0.35,'tick'],[0.6,'tick'],[0.75,'riser',.15],[0.9,'bigboom'],[1.9,'whoosh'],[2.0,'riser',.6],[2.6,'bigboom'],[4.3,'whoosh'],[4.6,'hit'],[6.3,'whoosh'],[7.0,'hit'],[9.4,'impact']];
+const w=document.getElementById('world');
+const bg=mk(w,'abs','',{width:W+'px',height:H+'px',background:'#0b0f0c'});
+const stage=mk(w,'abs','',{width:W+'px',height:H+'px'});
+const A=(p,html,css)=>mk(p,'ar',html,css);
+// S1
+const s1=mk(stage,'abs');
+const clock=mk(s1,'abs','<svg width="420" height="420" viewBox="0 0 420 420"><circle cx="210" cy="210" r="180" fill="none" stroke="#fff" stroke-width="26"/><line id="hm" x1="210" y1="210" x2="210" y2="90" stroke="#a6e62a" stroke-width="24" stroke-linecap="round"/><line id="hh" x1="210" y1="210" x2="300" y2="210" stroke="#fff" stroke-width="24" stroke-linecap="round"/><circle cx="210" cy="210" r="20" fill="#a6e62a"/></svg>',{left:'330px',top:'380px'});
+const last=A(s1,'آخر يوم',{top:'860px',fontSize:'300px',color:'#fff'});
+const s1b=A(s1,'لعرض البلاك فرايداي',{top:'1260px',fontSize:'96px',color:'var(--g)'});
+// S2
+const s2=mk(stage,'abs');
+const bf=mk(s2,'pill','BLACK FRIDAY',{left:0,top:'380px',background:'var(--ink)',color:'#fff',fontSize:'90px',padding:'6px 36px',fontFamily:'Cairo',fontStyle:'normal'});
+const kh=A(s2,'خصم',{top:'560px',fontSize:'230px',color:'var(--ink)'});
+const n30=A(s2,'٣٠٪',{top:'780px',fontSize:'560px',color:'var(--ink)',lineHeight:'1'});
+const rings=[0,1,2].map(i=>mk(s2,'abs','',{left:'290px',top:'860px',width:'500px',height:'500px',border:'14px solid var(--ink)',borderRadius:'50%'}));
+// S3
+const s3=mk(stage,'abs');
+const m1=A(s3,'متستناش',{top:'640px',fontSize:'250px',color:'#fff'});
+const m2=A(s3,'السبت الجاي',{top:'930px',fontSize:'200px',color:'var(--g)'});
+// S4
+const s4=mk(stage,'abs');
+const badge=mk(s4,'abs','',{left:'350px',top:'330px',width:'380px',height:'380px',borderRadius:'50%',background:'var(--ink)',border:'12px solid var(--g)'});
+const lg=logoImg(s4,'../assets/logo-white.png',250);
+const c1=A(s4,'ابدأ رحلتك النهارده',{top:'790px',fontSize:'110px',color:'var(--ink)'});
+const btn=mk(s4,'btn','ابعتلنا دلوقتي',{top:'1010px'});
+const arrow=A(s4,'▲',{top:'1230px',fontSize:'90px',color:'var(--gd)'});
+const c2=A(s4,'قبل ما العرض يخلص',{top:'1370px',fontSize:'84px',color:'var(--gd)'});
+const sw=mk(w,'abs','',{left:'-300px',top:'-300px',width:'760px',height:'2600px',background:'var(--g)'});
+const flash=mk(w,'abs','',{width:W+'px',height:H+'px',background:'#fff',opacity:0});
+window.render=function(t){
+ vis(s1,t<2.0);vis(s2,t>=2.0&&t<4.4);vis(s3,t>=4.4&&t<6.4);vis(s4,t>=6.4);
+ bg.style.background=t<2.0?'#0b0f0c':t<4.4?'#a6e62a':t<6.4?'#0b0f0c':'#ffffff';
+ // S1 clock: minute hand ticks every 0.25 s, then spins on the slam
+ const hm=document.getElementById('hm'),hh=document.getElementById('hh');
+ const tick=t<0.9?Math.floor(t/0.25)*30:90+(t-0.9)*900;hm.setAttribute('transform',`rotate(${tick} 210 210)`);hh.setAttribute('transform',`rotate(${tick/12} 210 210)`);
+ tf(clock,{s:P(t,0,.3,E.back)*(1+.04*pulse(t,Math.floor(t/0.25)*0.25,.08))});
+ const ls=P(t,0.9,.16,E.expo);tf(last,{s:t<0.9?0:2.3-1.3*ls,o:t>=0.9?1:0});tf(s1b,{o:t>=1.2?1:0,y:(1-P(t,1.2,.25,E.back))*50});
+ // S2
+ centerX(bf);tf(bf,{s:P(t,2.0,.3,E.back),r:-3});tf(kh,{o:t>=2.15?1:0,y:(1-P(t,2.15,.25,E.out))*-60});
+ const o3=P(t,2.6,.18,E.expo);tf(n30,{s:t<2.6?0:2.3-1.3*o3});
+ rings.forEach((r,i)=>{const p=P(t,2.6+i*.12,.8);tf(r,{s:.4+3*p,o:t>=2.6+i*.12?1-p:0})});
+ // S3
+ tf(m1,{s:t<4.4?0:1+.35*(1-P(t,4.4,.18,E.expo))});tf(m2,{s:t<4.6?0:1+.35*(1-P(t,4.6,.18,E.expo))});
+ // S4
+ const bp=P(t,6.4,.4,E.back);tf(badge,{s:bp});lg.style.left='415px';lg.style.top='395px';tf(lg,{s:bp});
+ tf(c1,{o:t>=6.7?1:0,y:(1-P(t,6.7,.25))*60});
+ tf(btn,{s:P(t,7.0,.3,E.back)*(1+.04*Math.sin((t-7)*10)),o:t>=7?1:0});
+ tf(arrow,{o:t>=7.4?1:0,y:-Math.abs(Math.sin((t-7.4)*7))*30});tf(c2,{o:t>=7.8?1:0,y:(1-P(t,7.8,.25))*50});
+ let sx=-2400;for(const c of [2.0,4.4,6.4])if(t>=c-.14&&t<c+.14)sx=-1700+3400*E.inOut((t-c+.14)/.28);
+ sw.style.transform=`translateX(${sx}px) rotate(18deg)`;vis(sw,sx>-2300);
+ let fo=0;for(const c of [0.9,2.6,4.6])fo=Math.max(fo,.7*pulse(t,c,.07));flash.style.opacity=fo;
+ const a1=shake(t,0.9,.35,24),a2=shake(t,2.6,.4,26);stage.style.transform=`translate(${a1[0]+a2[0]}px,${a1[1]+a2[1]}px)`;
+ w.style.opacity=t>9.7?1-P(t,9.7,.3,E.lin):1;
+};
+ready().then(()=>{[last,s1b,kh,n30,m1,m2,c1,c2].forEach(e=>fit(e,940));contract([[0,'LAST DAY'],[2.0,'OFFER'],[4.4,'URGENCY'],[6.4,'CALL TO ACTION']]);window.render(0)});
+</script></body></html>
