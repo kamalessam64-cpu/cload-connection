@@ -53,18 +53,41 @@ def bump(t):
         d=(t-c)*fps
         if -3<=d<=5: v=max(v,np.exp(-0.5*(d/2.0)**2))
     return v
+# ── B-roll inserts from the X7 reel (box.mp4), matched to her words: (start, end on the reel timeline, source start)
+BOX='/home/user/cload-connection/black-friday/offer/src/box.mp4'
+INS=[(1.19,1.70,13.70),(3.00,3.50,12.90),(7.93,8.65,9.00),(8.65,9.40,15.00),(9.85,10.55,16.90),(17.27,18.05,19.40)]
+bc=cv2.VideoCapture(BOX);bfps=bc.get(cv2.CAP_PROP_FPS);bframes=[]
+while True:
+    ok,f=bc.read()
+    if not ok:break
+    bframes.append(f)
+def insert_frame(t):
+    for s0,s1,src0 in INS:
+        if s0<=t<s1:
+            k=min(len(bframes)-1,int(round((src0+(t-s0))*bfps)));f=bframes[k];h,w=f.shape[:2]
+            z=1.0+0.08*(t-s0)/(s1-s0)                                     # slow push-in so the insert never sits still
+            ch=h/z;cw=ch*FW/FH
+            if cw>w:cw=w;ch=cw*FH/FW
+            x0=(w-cw)/2;y0=(h-ch)*0.4
+            M=np.float32([[FW/cw,0,-x0*FW/cw],[0,FH/ch,-y0*FH/ch]])
+            o=cv2.warpAffine(f,M,(FW,FH),flags=cv2.INTER_LANCZOS4,borderMode=cv2.BORDER_REPLICATE)
+            bl=cv2.GaussianBlur(o,(0,0),2.0);return cv2.addWeighted(o,1.6,bl,-0.6,0)   # light sharpen after the upscale
+    return None
+TR=sorted(set(TR+[x for s0,s1,_ in INS for x in (s0,s1)]))
 src=cv2.VideoCapture(W+'/cutz_orig.mp4')
 enc=subprocess.Popen(['ffmpeg','-v','error','-y','-f','rawvideo','-pix_fmt','bgr24','-s',f'{FW}x{FH}','-r',str(fps),'-i','-',
     '-c:v','libx264','-preset','slow','-crf','12','-pix_fmt','yuv420p','-color_primaries','bt709','-color_trc','bt709','-colorspace','bt709',W+'/cam/camera.mp4'],stdin=subprocess.PIPE)
 for i in range(N):
     ok,f=src.read()
     if not ok:break
+    ins=insert_frame(t_all[i])
     b=bump(t_all[i]);z=Z[i]*(1+0.10*b)
     ch=FH/z;cw=ch*FW/FH
     x0=cx[i]-cw/2; y0=cy[i]-0.30*ch            # face centred, sitting at 30% from the top
     x0=min(max(0,x0),FW-cw);y0=min(max(0,y0),FH-ch)
     M=np.float32([[FW/cw,0,-x0*FW/cw],[0,FH/ch,-y0*FH/ch]])
     o=cv2.warpAffine(f,M,(FW,FH),flags=cv2.INTER_LANCZOS4,borderMode=cv2.BORDER_REPLICATE)
+    if ins is not None:o=ins
     if b>0.05:                                 # zoom-blur on the punch frames
         acc=o.astype(np.float32);n=5
         for k in range(1,n):
