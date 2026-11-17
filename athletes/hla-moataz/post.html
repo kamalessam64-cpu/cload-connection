@@ -1,0 +1,39 @@
+<!doctype html><html lang="ar"><head><meta charset="utf-8"><link rel="stylesheet" href="fonts.css">
+<style>
+:root{--g:#a6e62a;--gd:#5a9e12;--ink:#0b0f0c}
+*{margin:0;box-sizing:border-box}
+body{width:1080px;height:1350px;position:relative;overflow:hidden;background:#f6faf4;font-family:'Cairo',sans-serif;color:var(--ink)}
+.a{position:absolute}
+.stripes{position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(166,230,42,.20) 0 30px,transparent 30px 70px)}
+.slab{left:60px;top:200px;width:560px;height:760px;background:var(--g);transform:translate(20px,20px);clip-path:polygon(9% 0,100% 0,91% 100%,0 100%)}
+.photo{left:60px;top:200px;width:560px;height:760px;clip-path:polygon(9% 0,100% 0,91% 100%,0 100%);overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+.badge{left:60px;top:40px;width:130px;height:130px;border-radius:50%;background:var(--ink);border:6px solid var(--g);display:flex;align-items:center;justify-content:center}
+.badge img{width:72%}
+.tag{right:60px;top:66px;background:var(--ink);color:#fff;font-weight:900;font-size:44px;padding:4px 26px;transform:skewX(-8deg)}
+.tag b{color:var(--g)}
+.lbl{left:660px;right:50px;font-weight:900;white-space:nowrap}
+.time{left:640px;top:330px;font-weight:900;font-style:italic;font-size:122px;letter-spacing:-4px;line-height:1;color:var(--ink);text-shadow:8px 8px 0 var(--g)}
+.band{left:0;right:0;top:1000px;height:350px;background:var(--ink);clip-path:polygon(0 12%,100% 0,100% 100%,0 100%)}
+.band::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:var(--g)}
+.name{left:60px;right:60px;top:1070px;font-weight:900;font-style:italic;font-size:120px;letter-spacing:-3px;color:#fff;white-space:nowrap;line-height:1;transform:skewX(-8deg)}
+.name em{color:var(--g)}
+.foot{left:64px;right:64px;bottom:34px;display:flex;justify-content:space-between;font-family:'DejaVu Sans Mono',monospace;font-size:18px;letter-spacing:5px;color:#9aa59b}
+.foot b{color:var(--g)}
+</style></head><body>
+<div class="stripes"></div>
+<div class="a badge"><img src="../../black-friday/assets/logo-white.png"></div>
+<div class="a tag">HYROX <b>FINISHER</b></div>
+<div class="a slab"></div>
+<div class="a photo"><img src="photo.jpg"></div>
+<div class="a lbl" style="top:240px;font-size:36px;letter-spacing:6px;color:var(--gd)">FINISH TIME</div>
+<div class="a time">2:31:34</div>
+<div class="a lbl" style="top:530px;font-size:58px;direction:rtl;text-align:right">أول سباق <span style="background:var(--g);padding:0 14px">سولو</span></div>
+<div class="a lbl" style="top:630px;font-size:58px;direction:rtl;text-align:right">وخلّصته! 🏁</div>
+<div class="a lbl" style="top:760px;font-size:30px;letter-spacing:6px;color:#555">HYROX CAIRO</div>
+<div class="a lbl" style="top:810px;font-size:30px;letter-spacing:6px;color:#555">SOLO DIVISION</div>
+<div class="a band"></div>
+<div class="a name">HLA <em>MOATAZ</em></div>
+<div class="a foot"><span><b>X7PLUS</b> ATHLETE</span><span>#X7PLUS_ATHLETES</span></div>
+<script>Promise.all([document.fonts.ready,...[...document.images].map(i=>i.complete?1:new Promise(r=>i.onload=i.onerror=r))]).then(()=>document.body.dataset.ready=1)</script>
+</body></html>
